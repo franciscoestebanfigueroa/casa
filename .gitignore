@@ -1,3 +1,6 @@
+#ignorar los archivos qeu quiero
+google-services.json
+
 # Miscellaneous
 *.class
 *.log

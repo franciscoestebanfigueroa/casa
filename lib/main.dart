@@ -33,7 +33,7 @@ class Sfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat'),
+        title: Text('Chat 2.0'),
       ),
       body: Center(
         child: Container(child: Pruebafire()),
