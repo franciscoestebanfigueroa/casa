@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:wapp/pagechat.dart';
 import 'package:wapp/segundapage.dart';
 
 Future<void> main() async {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (contex) => Sfo(),
+        '//': (context) => Chat(),
       },
     );
   }

@@ -49,7 +49,12 @@ class Pruebafire extends StatelessWidget {
         else {
           List<Grupo> datos = snapshot.data;
 
-          return new ListView.builder(
+          return new ListView.separated(
+            separatorBuilder: (context, int) {
+              return Divider(
+                thickness: 2,
+              );
+            },
             itemCount: datos.length,
             itemBuilder: (BuildContext context, int index) {
               final xx = datos[index];
