@@ -7,3 +7,12 @@ Stream<List<Grupo>> mystream() {
       .snapshots()
       .map(tolistgrupo);
 }
+
+Stream<List<DatosMensaje>> streamMensaje(String id) {
+  return fire.FirebaseFirestore.instance
+      .collection('grupos')
+      .doc(id)
+      .collection('mensaje')
+      .snapshots()
+      .map(datosMensaje);
+}
