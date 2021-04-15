@@ -7,8 +7,9 @@ class Chat extends StatelessWidget {
   Widget build(BuildContext context) {
     final Grupo xx = ModalRoute.of(context).settings.arguments;
     return Scaffold(
+        backgroundColor: Colors.teal[100],
         appBar: AppBar(
-          title: Text(xx.id),
+          title: Text('Sala.. ${xx.nombre}'),
         ),
         body: Column(
           children: [
@@ -16,7 +17,12 @@ class Chat extends StatelessWidget {
                 child: ChatList(
               id: xx.id,
             )),
-            CajaTxtBoton(),
+            CajaTxtBoton(funcion: (txt) {
+              print('el dato $txt');
+              final chatclase = DatosMensaje(txt);
+              Map<String, dynamic> mapa = chatclase.mapa();
+              db.enviar(xx.id, mapa);
+            }),
           ],
         ));
   }
@@ -40,11 +46,36 @@ class ChatList extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         } else {
           return ListView.builder(
+            itemExtent: 25,
+            padding: EdgeInsets.only(bottom: 20),
+            reverse: true,
             itemCount: doc.length,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                //leading: Text('data'),
-                title: Text('${doc[index].texto}'),
+                title: Row(
+                  children: [
+                    Material(
+                      elevation: 2,
+                      borderRadius: BorderRadius.circular(3),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                            child: Text(' ${doc[index].texto} ',
+                                style: TextStyle(fontSize: 16)),
+                          ),
+                          Container(
+                            child: Text(
+                              ' ${doc[index].hhmm} ',
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 10),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
           );
@@ -55,6 +86,8 @@ class ChatList extends StatelessWidget {
 }
 
 class CajaTxtBoton extends StatefulWidget {
+  Function funcion;
+  CajaTxtBoton({this.funcion});
   @override
   _CajaTxtBotonState createState() => _CajaTxtBotonState();
 }
@@ -77,28 +110,60 @@ class _CajaTxtBotonState extends State<CajaTxtBoton> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        onSubmitted: (dato) {
-          enviar();
-        },
-        controller: _controler,
-        decoration: InputDecoration(
-          hintText: '  Mensaje',
-          suffixIcon: IconButton(
-            icon: Icon(Icons.send),
-            onPressed: () {
-              enviar();
-            },
+    return Row(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Material(
+              shape: StadiumBorder(),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: TextField(
+                  onSubmitted: (e) {
+                    enviar();
+                  },
+                  controller: _controler,
+                  decoration: InputDecoration(
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: '  Mensaje',
+                    /*suffixIcon: IconButton(
+                      icon: Icon(Icons.send),
+                      onPressed: enviar,
+                    ),*/
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
-      ),
+        Expanded(
+          flex: 0,
+          child: Material(
+            color: Theme.of(context).primaryColor,
+            shape: CircleBorder(),
+            child: TextButton(
+              child: Icon(
+                Icons.send,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                enviar();
+              },
+            ),
+          ),
+        )
+      ],
     );
   }
 
-  Future<void> enviar() async {
-    await print(_controler.text);
-    _controler.clear();
+  void enviar() {
+    setState(() {
+      widget.funcion(_controler.text);
+      _controler.clear();
+    });
+
+    //print(_controler.text);
   }
 }

@@ -39,30 +39,33 @@ class Pruebafirex extends StatelessWidget {
 class Pruebafire extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: mystream(),
-      builder: (BuildContext context, AsyncSnapshot<List<Grupo>> snapshot) {
-        if (snapshot.hasError)
-          return Center(child: Text('Error ${snapshot.error.toString()}'));
-        if (snapshot.connectionState == ConnectionState.waiting)
-          return CircularProgressIndicator();
-        else {
-          List<Grupo> datos = snapshot.data;
+    return Scaffold(
+      appBar: AppBar(),
+      body: StreamBuilder(
+        stream: mystream(),
+        builder: (BuildContext context, AsyncSnapshot<List<Grupo>> snapshot) {
+          if (snapshot.hasError)
+            return Center(child: Text('Error ${snapshot.error.toString()}'));
+          if (snapshot.connectionState == ConnectionState.waiting)
+            return CircularProgressIndicator();
+          else {
+            List<Grupo> datos = snapshot.data;
 
-          return new ListView.separated(
-            separatorBuilder: (context, int) {
-              return Divider(
-                thickness: 2,
-              );
-            },
-            itemCount: datos.length,
-            itemBuilder: (BuildContext context, int index) {
-              final xx = datos[index];
-              return ListGrupo(xx: xx);
-            },
-          );
-        }
-      },
+            return new ListView.separated(
+              separatorBuilder: (context, int) {
+                return Divider(
+                  thickness: 2,
+                );
+              },
+              itemCount: datos.length,
+              itemBuilder: (BuildContext context, int index) {
+                final xx = datos[index];
+                return ListGrupo(xx: xx);
+              },
+            );
+          }
+        },
+      ),
     );
   }
 }

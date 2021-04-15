@@ -18,12 +18,19 @@ class DatosMensaje {
   String mensajeId;
   DateTime datetime;
 
-  DatosMensaje(fire.DocumentSnapshot docmensaje)
+  DatosMensaje(this.texto) : datetime = DateTime.now();
+
+  String get hhmm =>
+      '${datetime.hour.toString().padLeft(2, '0')}.:${datetime.minute.toString().padLeft(2, '0')}';
+
+  DatosMensaje.defire(fire.DocumentSnapshot docmensaje)
       : texto = docmensaje.data()['texto'],
-        //datetime = (docmensaje.data()['datatime']),
+        datetime = (docmensaje.data()['datetime'] as fire.Timestamp).toDate(),
         mensajeId = docmensaje.id;
+
+  Map<String, dynamic> mapa() => {'datetime': datetime, 'texto': texto};
 }
 
 List<DatosMensaje> datosMensaje(fire.QuerySnapshot query2) {
-  return query2.docs.map((e) => DatosMensaje(e)).toList();
+  return query2.docs.map((e) => DatosMensaje.defire(e)).toList();
 }
