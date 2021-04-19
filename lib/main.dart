@@ -4,9 +4,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:wapp/avion/avion.dart';
 import 'package:wapp/pagechat.dart';
 import 'package:wapp/segundapage.dart';
+import 'package:wapp/widgetpersinalizado/widgetpersonalizado.dart';
 
+import 'animatedcontainer/containeranimed.dart';
 import 'efectos/efectos.dart';
 import 'efectos/propiedades.dart';
+import 'movimientolibre/movimientolibre.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,9 +32,10 @@ class MyApp extends StatelessWidget {
         '/chat': (contex) => Pruebafire(),
         '/avion': (contex) => Avion(),
         '/efectos': (_) => Efectos(),
-        '/propiedades': (_) => Propiedades(
-              index: 3,
-            )
+        '/propiedades': (_) => Propiedades(),
+        '/widgetpersonalizado': (_) => WidgetPersonalizado(),
+        '/containeranimed': (_) => ContainerAnimed(),
+        '/movimientolibre': (_) => MovimientoLibre(),
       },
     );
   }
@@ -73,6 +77,36 @@ class Sfo extends StatelessWidget {
               texto: 'Efectos',
               duration: Duration(milliseconds: 1200),
               ruta: '/efectos',
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Botones(
+              color: Colors.orange,
+              axis: Axis.horizontal,
+              texto: 'Widget personalizado',
+              duration: Duration(milliseconds: 1200),
+              ruta: '/widgetpersonalizado',
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Botones(
+              color: Colors.orange,
+              axis: Axis.horizontal,
+              texto: 'Container Animado',
+              duration: Duration(milliseconds: 1200),
+              ruta: '/containeranimed',
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Botones(
+              color: Colors.orange,
+              axis: Axis.horizontal,
+              texto: 'Movimiento Libre',
+              duration: Duration(milliseconds: 1200),
+              ruta: '/movimientolibre',
             )
           ],
         ),
