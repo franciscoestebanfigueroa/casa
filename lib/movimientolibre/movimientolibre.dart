@@ -39,10 +39,6 @@ class _MovimientoLibreState extends State<MovimientoLibre> {
 }
 
 class Skfold extends StatefulWidget {
-  const Skfold({
-    Key key,
-  }) : super(key: key);
-
   @override
   _SkfoldState createState() => _SkfoldState();
 }
