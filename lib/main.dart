@@ -9,6 +9,7 @@ import 'package:wapp/widgetpersinalizado/widgetpersonalizado.dart';
 import 'animatedcontainer/containeranimed.dart';
 import 'efectos/efectos.dart';
 import 'efectos/propiedades.dart';
+import 'flatmultiple/floatmultible.dart';
 import 'movimientolibre/movimientolibre.dart';
 
 Future<void> main() async {
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/widgetpersonalizado': (_) => WidgetPersonalizado(),
         '/containeranimed': (_) => ContainerAnimed(),
         '/movimientolibre': (_) => MovimientoLibre(),
+        '/floatmultiple': (_) => CircularButtonFlating(),
       },
     );
   }
@@ -107,6 +109,16 @@ class Sfo extends StatelessWidget {
               texto: 'Movimiento Libre',
               duration: Duration(milliseconds: 1200),
               ruta: '/movimientolibre',
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Botones(
+              color: Colors.orange,
+              axis: Axis.horizontal,
+              texto: 'Float Multiple',
+              duration: Duration(milliseconds: 1200),
+              ruta: '/floatmultiple',
             )
           ],
         ),
