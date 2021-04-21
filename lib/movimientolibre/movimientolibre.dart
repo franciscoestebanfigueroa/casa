@@ -1,5 +1,5 @@
 import 'dart:math';
-//hola pancho xxxx
+//hola pancho xxxx seguro
 import 'package:flutter/material.dart';
 import 'package:wapp/widgetpersinalizado/widgetpersonalizado.dart';
 
