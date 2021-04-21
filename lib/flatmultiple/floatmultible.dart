@@ -14,11 +14,18 @@ class _CircularButtonFlatingState extends State<CircularButtonFlating>
     with SingleTickerProviderStateMixin {
   AnimationController animationController;
   Animation animation;
+ // Animation animationratocion;
   @override
   void initState() {
     animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 200));
-    animation = Tween(begin: 0, end: 1).animate(animationController);
+        AnimationController(vsync: this, duration: Duration(milliseconds: 150));
+    animation = Tween<double>(begin: 0, end: 1).animate(animationController);
+   // animationratocion = Tween<double>(begin: 0, end: 360).animate(
+        CurvedAnimation(parent: animationController, curve: Curves.bounceOut));
+    /*animationController.addListener(() {
+      setState(() {});
+    });// ceo que no lo necesito?
+    */
     print(animationController.value);
 
     super.initState();
@@ -55,13 +62,18 @@ class _CircularButtonFlatingState extends State<CircularButtonFlating>
               return Transform.translate(
                 offset: Offset.fromDirection(
                     fromgradosaradianes(180), animationController.value * 100),
-                child: Xboton(
-                  colorx: Colors.orange,
-                  alto: 55,
-                  ancho: 55,
-                  icon: Icon(
-                    Icons.autorenew_sharp,
-                    color: Colors.white,
+                child: Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationZ(
+                      fromgradosaradianes(animation.value * 180)),
+                  child: Xboton(
+                    colorx: Colors.orange,
+                    alto: 55,
+                    ancho: 55,
+                    icon: Icon(
+                      Icons.autorenew_sharp,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               );
@@ -90,7 +102,7 @@ class _CircularButtonFlatingState extends State<CircularButtonFlating>
           duration: Duration(milliseconds: 300),
           bottom: estado ? -68 : 30,
           right: estado ? 33 : 30,
-          curve: Curves.bounceInOut,
+          curve: Curves.bounceOut,
           child: Transform.translate(
             offset: Offset.fromDirection(fromgradosaradianes(270), 100),
             child: Xboton(

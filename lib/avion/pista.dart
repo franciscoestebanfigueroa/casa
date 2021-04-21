@@ -23,6 +23,7 @@ class _PistaState extends State<Pista> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
+      //nos sirve para darnos los tamaños a travez del constains
       builder: (context, constraints) {
         return Stack(
           children: [
@@ -39,6 +40,7 @@ class _PistaState extends State<Pista> {
             AnimatedPositioned(
               duration: Duration(milliseconds: 450),
               curve: Curves.easeInOut,
+
               left: (MediaQuery.of(context).size.width / 2) - 36,
               //top: activo ?: ,
               bottom: activo ? constraints.maxHeight - 50 : 0,
