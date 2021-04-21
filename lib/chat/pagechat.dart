@@ -11,19 +11,24 @@ class Chat extends StatelessWidget {
         appBar: AppBar(
           title: Text('Sala.. ${xx.nombre}'),
         ),
-        body: Column(
-          children: [
-            Expanded(
-                child: ChatList(
-              id: xx.id,
-            )),
-            CajaTxtBoton(funcion: (txt) {
-              print('el dato $txt');
-              final chatclase = DatosMensaje(txt);
-              Map<String, dynamic> mapa = chatclase.mapa();
-              db.enviar(xx.id, mapa);
-            }),
-          ],
+        body: Scaffold(
+          appBar: AppBar(
+            title: Text('Chat'),
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                  child: ChatList(
+                id: xx.id,
+              )),
+              CajaTxtBoton(funcion: (txt) {
+                print('el dato $txt');
+                final chatclase = DatosMensaje(txt);
+                Map<String, dynamic> mapa = chatclase.mapa();
+                db.enviar(xx.id, mapa);
+              }),
+            ],
+          ),
         ));
   }
 }

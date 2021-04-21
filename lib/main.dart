@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:wapp/avion/avion.dart';
-import 'package:wapp/pagechat.dart';
-import 'package:wapp/segundapage.dart';
+import 'package:wapp/chat/pagechat.dart';
+import 'package:wapp/chat/segundapage.dart';
 import 'package:wapp/widgetpersinalizado/widgetpersonalizado.dart';
 
 import 'animatedcontainer/containeranimed.dart';
@@ -11,6 +11,7 @@ import 'efectos/efectos.dart';
 import 'efectos/propiedades.dart';
 import 'flatmultiple/floatmultible.dart';
 import 'movimientolibre/movimientolibre.dart';
+import 'usosliver/usosliver.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/containeranimed': (_) => ContainerAnimed(),
         '/movimientolibre': (_) => MovimientoLibre(),
         '/floatmultiple': (_) => CircularButtonFlating(),
+        '/usosliver': (_) => UsoSliver(),
       },
     );
   }
@@ -49,78 +51,91 @@ class Sfo extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Chat 2.0'),
+          title: Text('Programas'),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Botones(
-              duration: Duration(milliseconds: 900),
-              texto: 'chat',
-              ruta: '/chat',
-              color: Colors.amberAccent[400],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Botones(
-              color: Colors.orange,
-              axis: Axis.horizontal,
-              texto: 'Avión',
-              duration: Duration(milliseconds: 1200),
-              ruta: '/avion',
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Botones(
-              color: Colors.orange,
-              axis: Axis.horizontal,
-              texto: 'Efectos',
-              duration: Duration(milliseconds: 1200),
-              ruta: '/efectos',
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Botones(
-              color: Colors.orange,
-              axis: Axis.horizontal,
-              texto: 'Widget personalizado',
-              duration: Duration(milliseconds: 1200),
-              ruta: '/widgetpersonalizado',
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Botones(
-              color: Colors.orange,
-              axis: Axis.horizontal,
-              texto: 'Container Animado',
-              duration: Duration(milliseconds: 1200),
-              ruta: '/containeranimed',
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Botones(
-              color: Colors.orange,
-              axis: Axis.horizontal,
-              texto: 'Movimiento Libre',
-              duration: Duration(milliseconds: 1200),
-              ruta: '/movimientolibre',
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Botones(
-              color: Colors.orange,
-              axis: Axis.horizontal,
-              texto: 'Float Multiple',
-              duration: Duration(milliseconds: 1200),
-              ruta: '/floatmultiple',
-            )
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Botones(
+                duration: Duration(milliseconds: 900),
+                texto: 'chat',
+                ruta: '/chat',
+                color: Colors.amberAccent[400],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Botones(
+                color: Colors.orange,
+                axis: Axis.horizontal,
+                texto: 'Avión',
+                duration: Duration(milliseconds: 1200),
+                ruta: '/avion',
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Botones(
+                color: Colors.orange,
+                axis: Axis.horizontal,
+                texto: 'Efectos',
+                duration: Duration(milliseconds: 1200),
+                ruta: '/efectos',
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Botones(
+                color: Colors.orange,
+                axis: Axis.horizontal,
+                texto: 'Widget personalizado',
+                duration: Duration(milliseconds: 1200),
+                ruta: '/widgetpersonalizado',
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Botones(
+                color: Colors.orange,
+                axis: Axis.horizontal,
+                texto: 'Container Animado',
+                duration: Duration(milliseconds: 1200),
+                ruta: '/containeranimed',
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Botones(
+                color: Colors.orange,
+                axis: Axis.horizontal,
+                texto: 'Movimiento Libre',
+                duration: Duration(milliseconds: 1200),
+                ruta: '/movimientolibre',
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Botones(
+                color: Colors.orange,
+                axis: Axis.horizontal,
+                texto: 'Float Multiple',
+                duration: Duration(milliseconds: 1200),
+                ruta: '/floatmultiple',
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Botones(
+                color: Colors.orange,
+                axis: Axis.horizontal,
+                texto: 'Uso Sliver',
+                duration: Duration(milliseconds: 1200),
+                ruta: '/usosliver',
+              )
+            ],
+          ),
         ),
       ),
     );

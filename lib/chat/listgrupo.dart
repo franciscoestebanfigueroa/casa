@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wapp/pagechat.dart';
+import 'package:wapp/chat/pagechat.dart';
 
-import 'model/grupo.dart';
+import '../model/grupo.dart';
 
 class ListGrupo extends StatelessWidget {
   const ListGrupo({
