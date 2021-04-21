@@ -14,18 +14,18 @@ class _CircularButtonFlatingState extends State<CircularButtonFlating>
     with SingleTickerProviderStateMixin {
   AnimationController animationController;
   Animation animation;
-  // Animation animationratocion;
+  Animation animationratocion;
   @override
   void initState() {
     animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 150));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
     animation = Tween<double>(begin: 0, end: 1).animate(animationController);
-    // animationratocion = Tween<double>(begin: 0, end: 360).animate(
-    //CurvedAnimation(parent: animationController, curve: Curves.bounceOut));
-    /*animationController.addListener(() {
+    animationratocion = Tween<double>(begin: 0, end: 360).animate(
+        CurvedAnimation(parent: animationController, curve: Curves.bounceOut));
+    animationController.addListener(() {
       setState(() {});
-    });// ceo que no lo necesito?
-    */
+    }); // ceo que no lo necesito?
+
     print(animationController.value);
 
     super.initState();
@@ -65,7 +65,7 @@ class _CircularButtonFlatingState extends State<CircularButtonFlating>
                 child: Transform(
                   alignment: Alignment.center,
                   transform: Matrix4.rotationZ(
-                      fromgradosaradianes(animation.value * 180)),
+                      fromgradosaradianes(animationController.value * 180)),
                   child: Xboton(
                     colorx: Colors.orange,
                     alto: 55,
@@ -119,23 +119,31 @@ class _CircularButtonFlatingState extends State<CircularButtonFlating>
         Positioned(
           bottom: 30,
           right: 30,
-          child: Xboton(
-            funcion: () {
-              setState(() {
-                if (estado)
-                  animationController.forward();
-                else
-                  animationController.reverse();
-                estado = !estado;
-              });
+          child: AnimatedBuilder(
+            animation: animationController,
+            builder: (BuildContext context, Widget child) {
+              return Transform.rotate(
+                angle: animationController.value * fromgradosaradianes(-90),
+                child: Xboton(
+                  funcion: () {
+                    setState(() {
+                      if (estado)
+                        animationController.forward();
+                      else
+                        animationController.reverse();
+                      estado = !estado;
+                    });
+                  },
+                  colorx: Colors.blue,
+                  alto: 60,
+                  ancho: 60,
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.white,
+                  ),
+                ),
+              );
             },
-            colorx: Colors.blue,
-            alto: 60,
-            ancho: 60,
-            icon: Icon(
-              Icons.menu,
-              color: Colors.white,
-            ),
           ),
         ),
       ]),
