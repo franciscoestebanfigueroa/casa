@@ -18,6 +18,7 @@ class _EfectosState extends State<Efectos> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+            backgroundColor: Colors.blue,
             appBar: AppBar(
               actions: [
                 IconButton(
@@ -138,18 +139,31 @@ class _GrillaxState extends State<Grillax> {
           print('valor $valor');
           print('opaciti $opaciti');
           return Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.001)
-                ..translate(
-                  0.0,
-                  MediaQuery.of(context).size.height / 2.6 * (1 - valorx).abs(),
-                )
-                ..scale(valorx)
-              //..rotateX(numeropage * pi * 2)
-              ,
-              child: Opacity(
-                  opacity: opaciti, child: Image.network('$url$index/800')));
+            alignment: Alignment.center,
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.001)
+              ..translate(
+                0.0,
+                MediaQuery.of(context).size.height / 2.6 * (1 - valorx).abs(),
+              )
+              ..scale(valorx)
+            //..rotateX(numeropage * pi * 2)
+            ,
+            child: Opacity(
+              opacity: opaciti,
+              child: Container(
+                color: Colors.red,
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.network(
+                    '$url$index/800',
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+              ),
+            ),
+          );
         });
   }
 }
