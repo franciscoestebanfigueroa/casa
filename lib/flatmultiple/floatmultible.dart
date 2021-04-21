@@ -14,14 +14,14 @@ class _CircularButtonFlatingState extends State<CircularButtonFlating>
     with SingleTickerProviderStateMixin {
   AnimationController animationController;
   Animation animation;
- // Animation animationratocion;
+  // Animation animationratocion;
   @override
   void initState() {
     animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 150));
     animation = Tween<double>(begin: 0, end: 1).animate(animationController);
-   // animationratocion = Tween<double>(begin: 0, end: 360).animate(
-        CurvedAnimation(parent: animationController, curve: Curves.bounceOut));
+    // animationratocion = Tween<double>(begin: 0, end: 360).animate(
+    //CurvedAnimation(parent: animationController, curve: Curves.bounceOut));
     /*animationController.addListener(() {
       setState(() {});
     });// ceo que no lo necesito?
