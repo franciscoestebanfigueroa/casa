@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:wapp/utilidades/tarjetas.dart';
 
@@ -16,6 +18,7 @@ class UsoSliver extends StatelessWidget {
             trailing: Text(tarjetas[index].descripcion),
             title: Text(tarjetas[index].nombre),
             tileColor: tarjetas[index].color,
+            leading: Image.asset('assets/logo.jpg'),
           );
         },
       ),
