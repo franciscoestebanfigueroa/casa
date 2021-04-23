@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+final String url = 'https://picsum.photos/id/';
+
 class Tarjetas {
   final String nombre;
   final String descripcion;
@@ -10,20 +12,20 @@ class Tarjetas {
 }
 
 final List<Tarjetas> tarjetas = [
-  Tarjetas('Carolina', 'Madre', Colors.deepPurpleAccent, ''),
-  Tarjetas('Lara', 'Hija', Colors.pink, ''),
-  Tarjetas('Estaban', 'Hijo', Colors.orange, ''),
-  Tarjetas('Francisco', 'Padre', Colors.blue, ''),
-  Tarjetas('Carolina', 'Madre', Colors.deepPurpleAccent, ''),
-  Tarjetas('Lara', 'Hija', Colors.pink, ''),
-  Tarjetas('Estaban', 'Hijo', Colors.orange, ''),
-  Tarjetas('Francisco', 'Padre', Colors.blue, ''),
-  Tarjetas('Carolina', 'Madre', Colors.deepPurpleAccent, ''),
-  Tarjetas('Lara', 'Hija', Colors.pink, ''),
-  Tarjetas('Estaban', 'Hijo', Colors.orange, ''),
-  Tarjetas('Francisco', 'Padre', Colors.blue, ''),
-  Tarjetas('Carolina', 'Madre', Colors.deepPurpleAccent, ''),
-  Tarjetas('Lara', 'Hija', Colors.pink, ''),
-  Tarjetas('Estaban', 'Hijo', Colors.orange, ''),
-  Tarjetas('Francisco', 'Padre', Colors.blue, ''),
+  Tarjetas('Carolina', 'Madre', Colors.deepPurpleAccent, url),
+  Tarjetas('Lara', 'Hija', Colors.pink, url),
+  Tarjetas('Estaban', 'Hijo', Colors.orange, url),
+  Tarjetas('Francisco', 'Padre', Colors.blue, url),
+  Tarjetas('Carolina', 'Madre', Colors.deepPurpleAccent, url),
+  Tarjetas('Lara', 'Hija', Colors.pink, url),
+  Tarjetas('Estaban', 'Hijo', Colors.orange, url),
+  Tarjetas('Francisco', 'Padre', Colors.blue, url),
+  Tarjetas('Carolina', 'Madre', Colors.deepPurpleAccent, url),
+  Tarjetas('Lara', 'Hija', Colors.pink, url),
+  Tarjetas('Estaban', 'Hijo', Colors.orange, url),
+  Tarjetas('Francisco', 'Padre', Colors.blue, url),
+  Tarjetas('Carolina', 'Madre', Colors.deepPurpleAccent, url),
+  Tarjetas('Lara', 'Hija', Colors.pink, url),
+  Tarjetas('Estaban', 'Hijo', Colors.orange, url),
+  Tarjetas('Francisco', 'Padre', Colors.blue, url),
 ];
