@@ -87,40 +87,41 @@ class _UsoSliverState extends State<UsoSliver> {
                   print('index ${index}  ${porcentaje}');
                 }
 
-                return Transform.scale(
-                  scale: opacity,
-                  child: Opacity(
-                    opacity: opacity,
-                    child: Card(
-                      color: child.color,
-                      child: SizedBox(
-                        height: 150,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  child.nombre,
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                return Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.identity()
+                    ..rotateX(2 * pi * opacity)
+                    ..setEntry(3, 2, 0.001),
+                  child: Transform.scale(
+                    scale: opacity,
+                    child: Opacity(
+                      opacity: opacity,
+                      child: Card(
+                        color: child.color,
+                        child: SizedBox(
+                          height: 150,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    child.nombre,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                child.descripcion,
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              Image.asset('assets/logo.jpg'),
-                            ],
+                                Image.network('${child.asset}$index/200'),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
                 );
-              }, childCount: 10),
+              }, childCount: tarjetas.length),
             ),
           ],
         ),
