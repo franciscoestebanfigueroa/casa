@@ -77,44 +77,47 @@ class _UsoSliverState extends State<UsoSliver> {
 
               delegate: SliverChildBuilderDelegate((context, index) {
                 final child = tarjetas[index];
-                final desplazaminto = (index * size) - scrollController.offset;
-                final pasoauno = 1 - (desplazaminto / (index * size));
-
+                final itemposicion = (index * size);
+                final diferencia = scrollController.offset - itemposicion;
+                final porcentaje = 1 - (diferencia / size);
+                double opacity = porcentaje;
+                if (porcentaje > 1) opacity = 1;
+                if (porcentaje < 0) opacity = 0;
                 if (true) {
-                  print('se desplazo hacia arriba ${desplazaminto}');
-
-                  print('paso a uno ${pasoauno}');
-                  print(index);
+                  print('index ${index}  ${porcentaje}');
                 }
 
-                return SizedBox(
-                  height: 150,
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              child.nombre,
-                              style: TextStyle(
-                                  fontSize: 28, fontWeight: FontWeight.bold),
-                            ),
+                return Transform.scale(
+                  scale: opacity,
+                  child: Opacity(
+                    opacity: opacity,
+                    child: Card(
+                      color: child.color,
+                      child: SizedBox(
+                        height: 150,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  child.nombre,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Text(
+                                child.descripcion,
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              Image.asset('assets/logo.jpg'),
+                            ],
                           ),
-                          Text(
-                            child.descripcion,
-                            style: TextStyle(
-                                fontSize: 28, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            '  $index',
-                            style: TextStyle(
-                                fontSize: 28, fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                    color: child.color,
                   ),
                 );
               }, childCount: 10),
