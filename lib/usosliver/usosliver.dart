@@ -4,6 +4,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:wapp/utilidades/tarjetas.dart';
 
+const size = 150.0;
+
 class UsoSliver extends StatefulWidget {
   @override
   _UsoSliverState createState() => _UsoSliverState();
@@ -13,16 +15,16 @@ class _UsoSliverState extends State<UsoSliver> {
   final rndx = Random();
   ScrollController scrollController;
   void micontroler() {
-    setState(() {
-      print(scrollController);
-    });
+    setState(() {});
   }
 
   @override
   void initState() {
     scrollController = ScrollController();
 
-    scrollController.addListener(() {});
+    scrollController.addListener(() {
+      micontroler();
+    });
     super.initState();
   }
 
@@ -51,31 +53,74 @@ class _UsoSliverState extends State<UsoSliver> {
 
   @override
   Widget build(BuildContext context) {
-    print(scrollController);
     return SafeArea(
       child: Scaffold(
-          body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAnimatedList(
-            itemBuilder: (BuildContext context, int index,
-                Animation<double> animation) {},
-          ),
-          SliverAppBar(
-            //centerTitle: true,
-            expandedHeight: 120, //tamaño del Appbar
-            floating: true, //baja el appbar cada vez que baja el scroll
-            automaticallyImplyLeading: false,
-            stretch: true,
-            flexibleSpace: Image.asset(
-              'assets/logo.jpg',
-              fit: BoxFit.cover,
+          body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CustomScrollView(
+          controller: scrollController,
+          slivers: <Widget>[
+            /* SliverAppBar(
+              //centerTitle: true,
+              expandedHeight: 120, //tamaño del Appbar
+              floating: true, //baja el appbar cada vez que baja el scroll
+              // automaticallyImplyLeading: false,
+              stretch: true,
+              flexibleSpace: Image.asset(
+                'assets/logo.jpg',
+                fit: BoxFit.cover,
+              ),
+              // title: Text('Sliver'),
+            ),*/
+            SliverList(
+              //delegate: SliverChildListDelegate(miswidget),
+
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final child = tarjetas[index];
+                final desplazaminto = (index * size) - scrollController.offset;
+                final pasoauno = 1 - (desplazaminto / (index * size));
+
+                if (true) {
+                  print('se desplazo hacia arriba ${desplazaminto}');
+
+                  print('paso a uno ${pasoauno}');
+                  print(index);
+                }
+
+                return SizedBox(
+                  height: 150,
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              child.nombre,
+                              style: TextStyle(
+                                  fontSize: 28, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Text(
+                            child.descripcion,
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '  $index',
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    color: child.color,
+                  ),
+                );
+              }, childCount: 10),
             ),
-            // title: Text('Sliver'),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(miswidget),
-          ),
-        ],
+          ],
+        ),
       )),
     );
   }
