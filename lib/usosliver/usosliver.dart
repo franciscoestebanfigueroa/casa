@@ -55,31 +55,59 @@ class _UsoSliverState extends State<UsoSliver> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          //backgroundColor: Colors.black,
           body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: CustomScrollView(
           controller: scrollController,
           slivers: <Widget>[
-            /* SliverAppBar(
+            SliverToBoxAdapter(
+              child: Placeholder(
+                fallbackHeight: 150,
+              ),
+            ),
+            SliverAppBar(
+              pinned: true,
+              centerTitle: true,
+              title: Text(
+                'Listado de Productos',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30),
+              ),
+              backgroundColor: Colors.white,
+              elevation: 50,
               //centerTitle: true,
-              expandedHeight: 120, //tamaño del Appbar
+              // expandedHeight: 120, //tamaño del Appbar
               floating: true, //baja el appbar cada vez que baja el scroll
               // automaticallyImplyLeading: false,
               stretch: true,
-              flexibleSpace: Image.asset(
-                'assets/logo.jpg',
-                fit: BoxFit.cover,
-              ),
+              /*1 flexibleSpace: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        'assets/logo.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),*/
               // title: Text('Sliver'),
-            ),*/
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 50,
+              ),
+            ),
             SliverList(
               //delegate: SliverChildListDelegate(miswidget),
 
               delegate: SliverChildBuilderDelegate((context, index) {
                 final child = tarjetas[index];
-                final itemposicion = (index * size);
+                final itemposicion = (index * (size / 2));
                 final diferencia = scrollController.offset - itemposicion;
-                final porcentaje = 1 - (diferencia / size);
+                final porcentaje = 1 - (diferencia / size / 2);
                 double opacity = porcentaje;
                 if (porcentaje > 1) opacity = 1;
                 if (porcentaje < 0) opacity = 0;
@@ -90,30 +118,44 @@ class _UsoSliverState extends State<UsoSliver> {
                 return Transform(
                   alignment: Alignment.center,
                   transform: Matrix4.identity()
-                    ..rotateX(2 * pi * opacity)
-                    ..setEntry(3, 2, 0.001),
+                    //  ..rotateX(2 * pi * opacity)
+                    ..scale(opacity)
+                  //   ..setEntry(3, 2, 0.001)
+                  ,
                   child: Transform.scale(
-                    scale: opacity,
+                    scale: 1,
                     child: Opacity(
                       opacity: opacity,
-                      child: Card(
-                        color: child.color,
-                        child: SizedBox(
-                          height: 150,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    child.nombre,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                      child: Align(
+                        heightFactor:
+                            0.5, //nos permite zolapar..pero hay que ajustar el calculo del size
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(50),
+                                  topRight: Radius.circular(50))),
+                          color: child.color,
+                          child: SizedBox(
+                            height: 150,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      child.nombre,
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                ),
-                                Image.network('${child.asset}$index/200'),
-                              ],
+                                  CircleAvatar(
+                                    radius: 50,
+                                    foregroundImage: NetworkImage(
+                                        '${child.asset}$index/100'),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
