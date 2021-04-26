@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:wapp/avion/avion.dart';
 import 'package:wapp/chat/pagechat.dart';
 import 'package:wapp/chat/segundapage.dart';
+import 'package:wapp/delivery/delivery.dart';
 import 'package:wapp/widgetpersinalizado/widgetpersonalizado.dart';
 
 import 'animatedcontainer/containeranimed.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         '/movimientolibre': (_) => MovimientoLibre(),
         '/floatmultiple': (_) => CircularButtonFlating(),
         '/usosliver': (_) => UsoSliver(),
+        '/delivery': (_) => Delivery(),
       },
     );
   }
@@ -134,6 +136,16 @@ class Sfo extends StatelessWidget {
                 texto: 'Uso Sliver',
                 duration: Duration(milliseconds: 1200),
                 ruta: '/usosliver',
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Botones(
+                color: Colors.orange,
+                axis: Axis.horizontal,
+                texto: 'Delivery',
+                duration: Duration(milliseconds: 1200),
+                ruta: '/delivery',
               )
             ],
           ),
