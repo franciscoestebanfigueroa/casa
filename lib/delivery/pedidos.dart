@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wapp/delivery/productos.dart';
+import 'package:wapp/utilidades/tarjetas.dart';
 
 class Pedidos extends StatefulWidget {
   @override
@@ -10,20 +12,26 @@ class _PedidosState extends State<Pedidos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple,
+      backgroundColor: colorindex[selectindex],
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: IndexedStack(children: [
-              Text('data $selectindex'),
+            child: IndexedStack(index: selectindex, children: [
+              Productos(),
+              Text('que tal'),
+              Text('muy intersante'),
+              Text('selecciona el widget'),
+              Text('es como un swich'),
             ]),
           ),
-          BarraIndex(index: (x) {
-            setState(() {
-              selectindex = x;
-            });
-          }),
+          BarraIndex(
+              select: selectindex,
+              index: (x) {
+                setState(() {
+                  selectindex = x;
+                });
+              }),
         ],
       ),
     );
@@ -32,8 +40,8 @@ class _PedidosState extends State<Pedidos> {
 
 class BarraIndex extends StatelessWidget {
   final ValueChanged<int> index;
-
-  const BarraIndex({Key key, this.index}) : super(key: key);
+  final int select;
+  const BarraIndex({Key key, this.index, this.select}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +60,7 @@ class BarraIndex extends StatelessWidget {
               child: IconButton(
                   icon: Icon(
                     Icons.home,
-                    color: Colors.white,
+                    color: select == 0 ? Colors.green : Colors.white,
                   ),
                   onPressed: () {
                     return index(0);
@@ -61,7 +69,10 @@ class BarraIndex extends StatelessWidget {
             Material(
               color: Colors.grey,
               child: IconButton(
-                  icon: Icon(Icons.store, color: Colors.white),
+                  icon: Icon(
+                    Icons.store,
+                    color: select == 1 ? Colors.green : Colors.white,
+                  ),
                   onPressed: () {
                     return index(1);
                   }),
@@ -69,7 +80,10 @@ class BarraIndex extends StatelessWidget {
             CircleAvatar(
               backgroundColor: Colors.deepPurple,
               child: IconButton(
-                  icon: Icon(Icons.shopping_basket, color: Colors.white),
+                  icon: Icon(
+                    Icons.shopping_basket,
+                    color: select == 2 ? Colors.green : Colors.white,
+                  ),
                   onPressed: () {
                     return index(2);
                   }),
@@ -77,7 +91,10 @@ class BarraIndex extends StatelessWidget {
             Material(
               color: Colors.grey,
               child: IconButton(
-                  icon: Icon(Icons.favorite_border, color: Colors.white),
+                  icon: Icon(
+                    Icons.favorite_border,
+                    color: select == 3 ? Colors.green : Colors.white,
+                  ),
                   onPressed: () {
                     return index(3);
                   }),
@@ -85,7 +102,10 @@ class BarraIndex extends StatelessWidget {
             Material(
               color: Colors.grey,
               child: IconButton(
-                  icon: Icon(Icons.people_outline, color: Colors.white),
+                  icon: Icon(
+                    Icons.people_outline,
+                    color: select == 4 ? Colors.green : Colors.white,
+                  ),
                   onPressed: () {
                     return index(4);
                   }),

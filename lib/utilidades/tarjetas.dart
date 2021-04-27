@@ -11,7 +11,7 @@ class Tarjetas {
   Tarjetas(this.nombre, this.descripcion, this.color, this.asset);
 }
 
-final List<Tarjetas> tarjetas = [
+final tarjetas = [
   Tarjetas('Carolina', 'Madre', Colors.deepPurpleAccent, url),
   Tarjetas('Lara', 'Hija', Colors.pink, url),
   Tarjetas('Estaban', 'Hijo', Colors.orange, url),
@@ -28,4 +28,12 @@ final List<Tarjetas> tarjetas = [
   Tarjetas('Lara', 'Hija', Colors.pink, url),
   Tarjetas('Estaban', 'Hijo', Colors.orange, url),
   Tarjetas('Francisco', 'Padre', Colors.blue, url),
+];
+
+final List<Color> colorindex = [
+  Colors.black,
+  Colors.orange,
+  Colors.blue,
+  Colors.pink,
+  Colors.white
 ];
