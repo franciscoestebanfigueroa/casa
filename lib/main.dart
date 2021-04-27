@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:wapp/avion/avion.dart';
 import 'package:wapp/chat/pagechat.dart';
 import 'package:wapp/chat/segundapage.dart';
 import 'package:wapp/delivery/delivery.dart';
+import 'package:wapp/delivery/pedidos.dart';
 import 'package:wapp/widgetpersinalizado/widgetpersonalizado.dart';
 
 import 'animatedcontainer/containeranimed.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.red),
-      title: 'Chat',
+      title: 'Programas',
       initialRoute: '/',
       routes: {
         '/': (contex) => Sfo(),
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         '/floatmultiple': (_) => CircularButtonFlating(),
         '/usosliver': (_) => UsoSliver(),
         '/delivery': (_) => Delivery(),
+        '/pedidos': (_) => Pedidos(),
       },
     );
   }
@@ -58,96 +60,98 @@ class Sfo extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Botones(
-                duration: Duration(milliseconds: 900),
-                texto: 'chat',
-                ruta: '/chat',
-                color: Colors.amberAccent[400],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Botones(
-                color: Colors.orange,
-                axis: Axis.horizontal,
-                texto: 'Avión',
-                duration: Duration(milliseconds: 1200),
-                ruta: '/avion',
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Botones(
-                color: Colors.orange,
-                axis: Axis.horizontal,
-                texto: 'Efectos',
-                duration: Duration(milliseconds: 1200),
-                ruta: '/efectos',
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Botones(
-                color: Colors.orange,
-                axis: Axis.horizontal,
-                texto: 'Widget personalizado',
-                duration: Duration(milliseconds: 1200),
-                ruta: '/widgetpersonalizado',
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Botones(
-                color: Colors.orange,
-                axis: Axis.horizontal,
-                texto: 'Container Animado',
-                duration: Duration(milliseconds: 1200),
-                ruta: '/containeranimed',
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Botones(
-                color: Colors.orange,
-                axis: Axis.horizontal,
-                texto: 'Movimiento Libre',
-                duration: Duration(milliseconds: 1200),
-                ruta: '/movimientolibre',
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Botones(
-                color: Colors.orange,
-                axis: Axis.horizontal,
-                texto: 'Float Multiple',
-                duration: Duration(milliseconds: 1200),
-                ruta: '/floatmultiple',
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Botones(
-                color: Colors.orange,
-                axis: Axis.horizontal,
-                texto: 'Uso Sliver',
-                duration: Duration(milliseconds: 1200),
-                ruta: '/usosliver',
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Botones(
-                color: Colors.orange,
-                axis: Axis.horizontal,
-                texto: 'Delivery',
-                duration: Duration(milliseconds: 1200),
-                ruta: '/delivery',
-              )
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Botones(
+                  duration: Duration(milliseconds: 900),
+                  texto: 'chat',
+                  ruta: '/chat',
+                  color: Colors.amberAccent[400],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Botones(
+                  color: Colors.orange,
+                  axis: Axis.horizontal,
+                  texto: 'Avión',
+                  duration: Duration(milliseconds: 1200),
+                  ruta: '/avion',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Botones(
+                  color: Colors.orange,
+                  axis: Axis.horizontal,
+                  texto: 'Efectos',
+                  duration: Duration(milliseconds: 1200),
+                  ruta: '/efectos',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Botones(
+                  color: Colors.orange,
+                  axis: Axis.horizontal,
+                  texto: 'Widget personalizado',
+                  duration: Duration(milliseconds: 1200),
+                  ruta: '/widgetpersonalizado',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Botones(
+                  color: Colors.orange,
+                  axis: Axis.horizontal,
+                  texto: 'Container Animado',
+                  duration: Duration(milliseconds: 1200),
+                  ruta: '/containeranimed',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Botones(
+                  color: Colors.orange,
+                  axis: Axis.horizontal,
+                  texto: 'Movimiento Libre',
+                  duration: Duration(milliseconds: 1200),
+                  ruta: '/movimientolibre',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Botones(
+                  color: Colors.orange,
+                  axis: Axis.horizontal,
+                  texto: 'Float Multiple',
+                  duration: Duration(milliseconds: 1200),
+                  ruta: '/floatmultiple',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Botones(
+                  color: Colors.orange,
+                  axis: Axis.horizontal,
+                  texto: 'Uso Sliver',
+                  duration: Duration(milliseconds: 1200),
+                  ruta: '/usosliver',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Botones(
+                  color: Colors.orange,
+                  axis: Axis.horizontal,
+                  texto: 'Delivery',
+                  duration: Duration(milliseconds: 1200),
+                  ruta: '/delivery',
+                )
+              ],
+            ),
           ),
         ),
       ),

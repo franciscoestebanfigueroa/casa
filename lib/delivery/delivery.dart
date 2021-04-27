@@ -28,7 +28,7 @@ class _InicioState extends State<Inicio> {
   void funcion() {
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
-      return MateriaLogin();
+      return Login();
     }));
   }
 
@@ -56,11 +56,7 @@ class _InicioState extends State<Inicio> {
         centerTitle: true,
       ),
       body: DecoratedBox(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.blue, Colors.purple])),
+        decoration: BoxDecoration(gradient: migradiente),
         child: Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,

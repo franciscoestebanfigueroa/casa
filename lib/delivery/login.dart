@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wapp/delivery/pedidos.dart';
 
-class MateriaLogin extends StatelessWidget {
-  const MateriaLogin({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Login(),
-    );
-  }
-}
+import 'package:wapp/utilidades/temas.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -17,17 +9,19 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController _controller;
+  TextEditingController _controller, _controllerpass;
   bool estadopass = true;
   @override
   void initState() {
     _controller = TextEditingController();
+    _controllerpass = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _controllerpass.dispose();
     super.dispose();
   }
 
@@ -42,25 +36,29 @@ class _LoginState extends State<Login> {
       body: Column(
         children: [
           Expanded(
+            flex: 1,
             child: Stack(
               children: [
                 Positioned(
-                  top: -360,
+                  top: -size.width - 60,
                   left: 0,
-                  height: 600,
+                  height: size.height - 60,
                   width: size.width,
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(600),
-                      color: Colors.purple,
-                    ),
+                        borderRadius: BorderRadius.circular(size.width),
+                        gradient: LinearGradient(
+                            colors: coloresgradiente,
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            stops: [0.7, 1.0])),
                   ),
                 ),
                 Positioned(
-                  top: size.height / 6,
+                  top: size.height / 9,
                   right: (size.width / 2) - 60,
                   child: CircleAvatar(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Colors.white,
                     radius: 60,
                     child: FlutterLogo(
                       size: 60,
@@ -80,17 +78,20 @@ class _LoginState extends State<Login> {
                   style: TextStyle(fontSize: 20),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 140, right: 140),
+                  padding: const EdgeInsets.only(left: 100, right: 100),
                   child: TextField(
                     controller: _controller,
-                    decoration: InputDecoration(labelText: 'Usuario'),
+                    decoration: InputDecoration(
+                        labelStyle:
+                            TextStyle(color: Theme.of(context).iconTheme.color),
+                        labelText: 'Usuario'),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 140, right: 140),
+                  padding: const EdgeInsets.only(left: 100, right: 100),
                   child: TextField(
-                    keyboardType: TextInputType.number,
-                    controller: _controller,
+                    obscureText: !estadopass,
+                    controller: _controllerpass,
                     decoration: InputDecoration(
                         suffix: IconButton(
                           icon: Icon(estadopass
@@ -102,9 +103,34 @@ class _LoginState extends State<Login> {
                             });
                           },
                         ),
+                        labelStyle:
+                            TextStyle(color: Theme.of(context).iconTheme.color),
                         labelText: 'Password'),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return Pedidos();
+                        }));
+                      },
+                      child: Text(
+                        'Ingresar',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(colors: coloresgradiente)),
+                  ),
+                )
               ],
             ),
           ),
