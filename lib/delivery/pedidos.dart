@@ -15,8 +15,9 @@ class _PedidosState extends State<Pedidos> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child:
-                Container(child: Text('data $selectindex'), color: Colors.blue),
+            child: IndexedStack(children: [
+              Text('data $selectindex'),
+            ]),
           ),
           BarraIndex(index: (x) {
             setState(() {
