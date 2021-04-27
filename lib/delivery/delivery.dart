@@ -11,7 +11,7 @@ class Delivery extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: mistemas,
+      theme: delivery,
       home: Inicio(),
     );
   }
@@ -28,7 +28,7 @@ class _InicioState extends State<Inicio> {
   void funcion() {
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
-      return Login();
+      return MateriaLogin();
     }));
   }
 
@@ -81,7 +81,7 @@ class _InicioState extends State<Inicio> {
               Text(
                 'Pancho',
                 style: (Theme.of(context).textTheme.headline4)
-                    .copyWith(fontWeight: FontWeight.bold),
+                    .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
               ),
             ],
           ),
