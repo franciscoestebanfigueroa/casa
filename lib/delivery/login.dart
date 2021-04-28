@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wapp/delivery/pedidos.dart';
+import 'package:wapp/delivery/widget_boton.dart';
 
 import 'package:wapp/utilidades/temas.dart';
 
@@ -110,25 +111,14 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (BuildContext context) {
-                          return Pedidos();
-                        }));
-                      },
-                      child: Text(
-                        'Ingresar',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(colors: coloresgradiente)),
+                  child: Boton_generico(
+                    nombre: 'Ingresar',
+                    ontap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return Pedidos();
+                      }));
+                    },
                   ),
                 )
               ],
