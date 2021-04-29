@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wapp/delivery/caritovacio.dart';
+import 'package:wapp/delivery/carrito.dart';
 import 'package:wapp/delivery/productos.dart';
 import 'package:wapp/utilidades/tarjetas.dart';
 
@@ -12,15 +14,21 @@ class _PedidosState extends State<Pedidos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorindex[selectindex],
+      backgroundColor: Colors.deepPurple,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             child: IndexedStack(index: selectindex, children: [
               Productos(),
-              Text('que tal'),
-              Text('muy intersante'),
+              CaritoVacio(
+                carrito_vacio: () {
+                  setState(() {
+                    selectindex = 0;
+                  });
+                },
+              ),
+              Carrito(),
               Text('selecciona el widget'),
               Text('es como un swich'),
             ]),

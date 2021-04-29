@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:wapp/utilidades/temas.dart';
 
-class Boton_generico extends StatelessWidget {
+class BotonGenerico extends StatelessWidget {
   final VoidCallback ontap;
   final String nombre;
   final double fontsize;
 
-  const Boton_generico(
+  const BotonGenerico(
       {Key key, this.ontap, this.nombre = 'seleccion', this.fontsize = 10})
       : super(key: key);
 

@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:wapp/animatedcontainer/containeranimed.dart';
 
 class CircularButtonFlating extends StatefulWidget {
   const CircularButtonFlating({Key key}) : super(key: key);

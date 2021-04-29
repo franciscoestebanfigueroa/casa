@@ -111,7 +111,7 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Boton_generico(
+                  child: BotonGenerico(
                     nombre: 'Ingresar',
                     ontap: () {
                       Navigator.of(context).push(
