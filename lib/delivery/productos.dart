@@ -32,6 +32,13 @@ class Productos extends StatelessWidget {
                     child: ClipOval(
                       child: Image.network(
                         '${tarjetas[index].asset}$index/50',
+                        errorBuilder: (context, _, x) {
+                          print(x);
+                          return Center(
+                              child: Text(
+                                  'No se pudo cargar la imagen..\n verifique la conexión',
+                                  textAlign: TextAlign.center));
+                        },
                         loadingBuilder: (context, _, ImageChunkEvent x) {
                           if (x != null)
                             return Center(child: CircularProgressIndicator());

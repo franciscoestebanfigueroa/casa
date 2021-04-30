@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wapp/delivery/caritovacio.dart';
 import 'package:wapp/delivery/carrito.dart';
+import 'package:wapp/delivery/perfil.dart';
 import 'package:wapp/delivery/productos.dart';
 import 'package:wapp/utilidades/tarjetas.dart';
 
@@ -30,7 +31,7 @@ class _PedidosState extends State<Pedidos> {
               ),
               Carrito(),
               Text('selecciona el widget'),
-              Text('es como un swich'),
+              Perfil()
             ]),
           ),
           BarraIndex(
