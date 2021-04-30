@@ -17,7 +17,7 @@ class Carrito extends StatelessWidget {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 40.0),
+                    padding: const EdgeInsets.only(top: 100.0),
                     child: CardCarrito(),
                   ),
                 ),
@@ -33,7 +33,7 @@ class Carrito extends StatelessWidget {
                           children: [
                             Text(
                               'Total de productos ',
-                              style: TextStyle(fontSize: 35),
+                              style: TextStyle(fontSize: 25),
                             ),
                             Text(
                               'Son Pesos \$',
@@ -45,10 +45,15 @@ class Carrito extends StatelessWidget {
                             Padding(
                               padding:
                                   const EdgeInsets.only(left: 30, right: 30),
-                              child: BotonGenerico(
-                                nombre: 'Pagar',
-                                fontsize: 20,
-                                ontap: () {},
+                              child: Material(
+                                elevation: 4,
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(20),
+                                child: BotonGenerico(
+                                  nombre: 'Pagar',
+                                  fontsize: 20,
+                                  ontap: () {},
+                                ),
                               ),
                             )
                           ],
@@ -67,7 +72,7 @@ class Carrito extends StatelessWidget {
           flex: 2,
         ),
         Expanded(
-          flex: 1,
+          flex: 0,
           child: Container(color: Colors.red),
         )
       ],
@@ -129,13 +134,16 @@ class CardCarrito extends StatelessWidget {
                             ],
                           ),
                           SizedBox(
-                            width: 40,
+                            width: 30,
                           ),
-                          Column(
-                            children: [
-                              Text(tarjetas[index].nombre),
-                              Text(tarjetas[index].descripcion),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Text(tarjetas[index].nombre),
+                                Text(tarjetas[index].descripcion),
+                              ],
+                            ),
                           )
                         ],
                       ),
