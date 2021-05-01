@@ -6,6 +6,7 @@ import 'package:wapp/chat/pagechat.dart';
 import 'package:wapp/chat/segundapage.dart';
 import 'package:wapp/delivery/delivery.dart';
 import 'package:wapp/delivery/pedidos.dart';
+import 'package:wapp/tips/tips.dart';
 import 'package:wapp/widgetpersinalizado/widgetpersonalizado.dart';
 
 import 'animatedcontainer/containeranimed.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/usosliver': (_) => UsoSliver(),
         '/delivery': (_) => Delivery(),
         '/pedidos': (_) => Pedidos(),
+        '/tips': (_) => Tips(),
       },
     );
   }
@@ -149,6 +151,16 @@ class Sfo extends StatelessWidget {
                   texto: 'Delivery',
                   duration: Duration(milliseconds: 1200),
                   ruta: '/delivery',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Botones(
+                  color: Colors.green,
+                  axis: Axis.vertical,
+                  texto: 'Tips',
+                  duration: Duration(milliseconds: 1400),
+                  ruta: '/tips',
                 )
               ],
             ),
