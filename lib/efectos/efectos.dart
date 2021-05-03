@@ -39,7 +39,7 @@ class _EfectosState extends State<Efectos> {
             body: DecoratedBox(
               decoration: BoxDecoration(gradient: migradiente),
               child: Container(
-                color: Colors.red,
+                //color: Colors.red,
                 child: Column(
                   children: [
                     Expanded(
@@ -74,37 +74,40 @@ class ListadoFotos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(gradient: migradiente),
-      child: PageView.builder(
-        itemCount: 20,
-        scrollDirection: Axis.vertical,
-        itemBuilder: (BuildContext context, int index) {
-          return Transform(
-            alignment: Alignment.center,
-            transform: Matrix4.identity()
-              ..scale((1 * value))
-              ..setEntry(3, 2, 0.001)
-              ..rotateX(2 * pi * value),
-            child: Center(
-              child: Material(
-                borderRadius: BorderRadius.circular(400),
-                color: Colors.transparent,
-                elevation: 4,
-                child: ListTile(
-                  // contentPadding: EdgeInsets.only(left: 8, right: 8, top: 2),
-                  subtitle: Text('Foto $index/Sin Controler '),
-                  title: ClipOval(
-                    child: Image.network(
-                      '$url$index/800',
-                      fit: BoxFit.fitWidth,
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: DecoratedBox(
+        decoration: BoxDecoration(gradient: migradiente),
+        child: PageView.builder(
+          itemCount: 20,
+          scrollDirection: Axis.vertical,
+          itemBuilder: (BuildContext context, int index) {
+            return Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.identity()
+                ..scale((1 * value))
+                ..setEntry(3, 2, 0.001)
+                ..rotateX(2 * pi * value),
+              child: Center(
+                child: Material(
+                  borderRadius: BorderRadius.circular(400),
+                  color: Colors.transparent,
+                  elevation: 4,
+                  child: ListTile(
+                    // contentPadding: EdgeInsets.only(left: 8, right: 8, top: 2),
+                    subtitle: Text('Foto $index/Sin Controler '),
+                    title: ClipOval(
+                      child: Image.network(
+                        '$url$index/800',
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
@@ -149,46 +152,49 @@ class _GrillaxState extends State<Grillax> {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(gradient: migradiente),
-      child: PageView.builder(
-          scrollDirection: Axis.vertical,
-          controller: _pageControler,
-          itemCount: 20,
-          itemBuilder: (context, index) {
-            final valor = (numeropage - index) + 0.5;
-            final valorx = -0.4 * valor + 1;
-            final opaciti = (1 - valor).clamp(0.0, 1.0);
-            print('valorx $valorx');
-            print('valor $valor');
-            print('opaciti $opaciti');
-            return Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.001)
-                ..translate(
-                  0.0,
-                  (MediaQuery.of(context).size.height /
-                          26 *
-                          (1 - valorx).abs() -
-                      100),
-                )
-                ..scale(valorx)
-              //..rotateX(numeropage * pi * 2)
-              ,
-              child: Opacity(
-                opacity: opaciti,
-                child: Container(
-                  child: ClipOval(
-                    child: Image.network(
-                      '$url$index/600',
-                      fit: BoxFit.cover,
+    return Container(
+      width: 350,
+      child: DecoratedBox(
+        decoration: BoxDecoration(gradient: migradiente),
+        child: PageView.builder(
+            scrollDirection: Axis.vertical,
+            controller: _pageControler,
+            itemCount: 20,
+            itemBuilder: (context, index) {
+              final valor = (numeropage - index) + 0.5;
+              final valorx = -0.4 * valor + 1;
+              final opaciti = (1 - valor).clamp(0.0, 1.0);
+              print('valorx $valorx');
+              print('valor $valor');
+              print('opaciti $opaciti');
+              return Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.identity()
+                  ..setEntry(3, 2, 0.001)
+                  ..translate(
+                    0.0,
+                    (MediaQuery.of(context).size.height /
+                            26 *
+                            (1 - valorx).abs() -
+                        100),
+                  )
+                  ..scale(valorx)
+                //..rotateX(numeropage * pi * 2)
+                ,
+                child: Opacity(
+                  opacity: opaciti,
+                  child: Container(
+                    child: ClipOval(
+                      child: Image.network(
+                        '$url$index/600',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
-          }),
+              );
+            }),
+      ),
     );
   }
 }

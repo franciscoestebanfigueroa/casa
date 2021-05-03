@@ -7,6 +7,7 @@ import 'package:wapp/chat/segundapage.dart';
 import 'package:wapp/delivery/delivery.dart';
 import 'package:wapp/delivery/pedidos.dart';
 import 'package:wapp/tips/tips.dart';
+import 'package:wapp/widget/widget.dart';
 import 'package:wapp/widgetpersinalizado/widgetpersonalizado.dart';
 
 import 'animatedcontainer/containeranimed.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: Colors.red),
+      theme: ThemeData(primaryColor: Colors.blue),
       title: 'Programas',
       initialRoute: '/',
       routes: {
@@ -47,6 +48,11 @@ class MyApp extends StatelessWidget {
         '/delivery': (_) => Delivery(),
         '/pedidos': (_) => Pedidos(),
         '/tips': (_) => Tips(),
+        '/widget': (_) => WidgetTodos(),
+        '/opacityanimation': (_) => OpacityDemo(),
+        '/fadedemo': (_) => FadeDemo(),
+        '/pagedemo': (_) => PageDemo(),
+        '/tabledemo': (_) => TableDemo(),
       },
     );
   }
@@ -161,6 +167,16 @@ class Sfo extends StatelessWidget {
                   texto: 'Tips',
                   duration: Duration(milliseconds: 1400),
                   ruta: '/tips',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Botones(
+                  color: Colors.green,
+                  axis: Axis.vertical,
+                  texto: 'Widget Demo',
+                  duration: Duration(milliseconds: 1800),
+                  ruta: '/widget',
                 )
               ],
             ),
