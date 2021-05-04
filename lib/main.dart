@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:wapp/avion/avion.dart';
+import 'package:wapp/challeng/challeng.dart';
 import 'package:wapp/chat/pagechat.dart';
 import 'package:wapp/chat/segundapage.dart';
 import 'package:wapp/delivery/delivery.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         '/fadedemo': (_) => FadeDemo(),
         '/pagedemo': (_) => PageDemo(),
         '/tabledemo': (_) => TableDemo(),
+        '/challeng': (_) => Challeng(),
       },
     );
   }
@@ -177,6 +179,16 @@ class Sfo extends StatelessWidget {
                   texto: 'Widget Demo',
                   duration: Duration(milliseconds: 1800),
                   ruta: '/widget',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Botones(
+                  color: Colors.green,
+                  axis: Axis.vertical,
+                  texto: 'Challeng',
+                  duration: Duration(milliseconds: 1800),
+                  ruta: '/challeng',
                 )
               ],
             ),

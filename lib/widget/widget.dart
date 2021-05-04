@@ -195,19 +195,21 @@ class TableDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: DecoratedBox(
+      body: Container(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(gradient: migradiente),
         child: Padding(
-          padding: const EdgeInsets.all(30.0),
+          padding: const EdgeInsets.all(50.0),
           child: Center(
             child: Table(
               border: TableBorder.all(width: 10),
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               columnWidths: {
-                1: FractionColumnWidth(0.5),
-                2: FractionColumnWidth(0.5),
+                // 0: FractionColumnWidth(.5),
+                // 1: FractionColumnWidth(.5),
+                // 2: FractionColumnWidth(.1),
               },
-              defaultColumnWidth: FractionColumnWidth(.2),
               children: [
                 TableRow(
                     decoration: BoxDecoration(gradient: migradiente),
@@ -222,33 +224,23 @@ class TableDemo extends StatelessWidget {
                         height: 300,
                         color: Colors.red,
                       ),
-                      Image.network('${tarjetas[0].asset}/10/400/300'),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        color: Colors.orange,
-                      ),
+                      Image.network('${tarjetas[0].asset}/10/100/100'),
 
                       // for (int i = 0; i < tarjetas.length; i++)
                       Image.network('${tarjetas[0].asset}/10/400/200'),
                     ]),
                 TableRow(children: [
                   Image.network('${tarjetas[0].asset}/10/400/300'),
+                  Image.network('${tarjetas[0].asset}/15/400/400'),
                   Container(
-                    width: 50,
-                    height: 50,
-                    color: Colors.black,
-                  ),
-                  Image.network('${tarjetas[0].asset}/15/200'),
-                  Container(
-                    width: 50,
-                    height: 50,
+                    width: 100,
+                    height: 100,
                     color: Colors.orange,
                   ),
                   Container(
-                    color: Colors.deepPurple,
-                    height: 30,
-                    width: 50,
+                    width: 100,
+                    height: 100,
+                    color: Colors.orange,
                   ),
                 ])
               ],
