@@ -75,6 +75,7 @@ class _SkfoldState extends State<Skfold> with SingleTickerProviderStateMixin {
           AnimatedBuilder(
               animation: animation,
               builder: (context, _) {
+                print('controloer.value  ${animationController.value}');
                 return Transform.rotate(
                   angle: 2 * pi * animationController.value,
                   child: Container(
