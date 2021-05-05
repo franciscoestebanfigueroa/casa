@@ -3,7 +3,7 @@ import 'package:wapp/animatedcontainer/containeranimed.dart';
 import 'package:wapp/usosliver/usosliver.dart';
 import 'package:wapp/utilidades/tarjetas.dart';
 
-ScrollController _scrollcontroler;
+ScrollController _scrollcontroler, _scrollmenu;
 
 class Challeng extends StatefulWidget {
   @override
@@ -12,15 +12,14 @@ class Challeng extends StatefulWidget {
 
 class _ChallengState extends State<Challeng> {
   void indice() {
-    print(_scrollcontroler);
     setState(() {});
   }
 
   @override
   void initState() {
-    _scrollcontroler = ScrollController();
+    _scrollcontroler = ScrollController(debugLabel: 'fotos');
     _scrollcontroler.addListener(() {
-      indice();
+      //   print(_scrollcontroler);
     });
     super.initState();
   }
@@ -40,31 +39,31 @@ class _ChallengState extends State<Challeng> {
       appBar: AppBar(
         title: Text('Material App Bar'),
       ),
-      body: Material(
-        child: Stack(
-          children: [
-            CustomScrollView(
-              controller: _scrollcontroler,
-              slivers: [
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return ListTile(
-                        title: Image.network(
-                            '${tarjetas[0].asset}/$index/640/480'),
-                      );
-                    },
-                  ),
+      body: Stack(
+        children: [
+          CustomScrollView(
+            controller: _scrollcontroler,
+            slivers: [
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return ListTile(
+                      title:
+                          Image.network('${tarjetas[0].asset}/$index/640/480'),
+                    );
+                  },
                 ),
-                SliverToBoxAdapter(
-                  child: Menu(
-                    height: _scrollcontroler.offset,
-                  ),
-                ),
-              ],
+              ),
+            ],
+          ),
+          Positioned(
+            bottom: 0,
+            left: 75,
+            child: Menu(
+              height: 100,
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
@@ -82,11 +81,16 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
   AnimationController _animationController;
 
   Animation _animation;
-
+  Offset movimiento = Offset(100, 100);
+  double dy = 100;
   @override
   void initState() {
+    _scrollmenu = ScrollController(debugLabel: 'menu');
+    _scrollmenu.addListener(() {
+      print(_scrollmenu);
+    });
     _animationController =
-        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
+        AnimationController(duration: Duration(milliseconds: 900), vsync: this);
     _animation = Tween(begin: 1, end: 0).animate(_animationController);
     _animationController.forward();
 
@@ -99,6 +103,8 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
   void dispose() {
     _animationController.dispose();
 
+    _scrollcontroler.removeListener(() {});
+    _scrollmenu.dispose();
     super.dispose();
   }
 
@@ -106,13 +112,28 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     //  final scroller = _scrollcontroler.offset;
-    Offset movimiento = Offset(0, 100);
 
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 500),
-      height: widget.height,
-      width: 200,
-      color: Colors.red,
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          dy = 200;
+        });
+      },
+      onPanUpdate: (c) {
+        movimiento += (c.delta);
+        dy += (dy - movimiento.dy).clamp(-1.0, 1.0);
+
+        setState(() {
+          print('dy--->$dy');
+          print('ofset ${movimiento.dy}');
+        });
+      },
+      child: AnimatedBuilder(
+        animation: _animationController.view,
+        builder: (BuildContext context, Widget child) {
+          return Container(color: Colors.red, width: 200, height: dy);
+        },
+      ),
     );
   }
 }

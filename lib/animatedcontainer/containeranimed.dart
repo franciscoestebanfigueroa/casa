@@ -45,8 +45,8 @@ class _ContainerAnimedState extends State<ContainerAnimed>
               child: Container(
                 alignment: Alignment.center,
                 color: Colors.blue,
-                width: 100,
-                height: 100,
+                width: _controler.value * 100.0,
+                height: _controler.value * 100.0,
                 child: Text('Pancho'),
               ),
             );
