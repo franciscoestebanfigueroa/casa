@@ -120,8 +120,8 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
         });
       },
       onPanUpdate: (c) {
-        movimiento += (c.delta);
-        dy += (dy - movimiento.dy).clamp(-1.0, 1.0);
+        movimiento += (c.delta.translate(0, -150));
+        dy += (dy - (movimiento.dy / 1000)).clamp(-1.0, 1.0);
 
         setState(() {
           print('dy--->$dy');
