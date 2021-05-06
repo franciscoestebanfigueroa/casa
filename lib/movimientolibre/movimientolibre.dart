@@ -17,8 +17,8 @@ class _MovimientoLibreState extends State<MovimientoLibre> {
     return Transform(
       transform: Matrix4.identity()
         ..setEntry(3, 2, 0.001)
-        ..rotateY(offset.dx * 0.04)
-        ..rotateX(offset.dy * 0.01),
+        ..rotateY(2 * pi * offset.dx * 0.001)
+        ..rotateX(2 * pi * offset.dy * 0.001),
       alignment: Alignment.center,
       child: GestureDetector(
         onDoubleTap: () {
@@ -28,7 +28,7 @@ class _MovimientoLibreState extends State<MovimientoLibre> {
         onPanUpdate: (diferencial) {
           setState(() {
             offset += diferencial.delta;
-            print(offset.dx);
+            print('dx ${offset.dx}');
             print(offset.dy);
           });
         },

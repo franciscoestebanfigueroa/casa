@@ -56,12 +56,8 @@ class _ChallengState extends State<Challeng> {
               ),
             ],
           ),
-          Positioned(
-            bottom: 0,
-            left: 75,
-            child: Menu(
-              height: 100,
-            ),
+          Menu(
+            height: 100,
           )
         ],
       ),
@@ -81,7 +77,7 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
   AnimationController _animationController;
 
   Animation _animation;
-  Offset movimiento = Offset(100, 100);
+  Offset movimiento = Offset.zero;
   double dy = 100;
   @override
   void initState() {
@@ -113,26 +109,41 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
     final size = MediaQuery.of(context).size;
     //  final scroller = _scrollcontroler.offset;
 
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          dy = 200;
-        });
-      },
-      onPanUpdate: (c) {
-        movimiento += (c.delta.translate(0, -150));
-        dy += (dy - (movimiento.dy / 1000)).clamp(-1.0, 1.0);
-
-        setState(() {
-          print('dy--->$dy');
-          print('ofset ${movimiento.dy}');
-        });
-      },
-      child: AnimatedBuilder(
-        animation: _animationController.view,
-        builder: (BuildContext context, Widget child) {
-          return Container(color: Colors.red, width: 200, height: dy);
+    return Positioned(
+      bottom: 0,
+      left: (size.width / 2) - (dy / 2),
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            movimiento = Offset.zero;
+            dy = 400;
+          });
         },
+        onPanUpdate: (c) {
+          //  movimiento += (c.delta) - Offset(0.0, c.delta.dy - dy);
+
+          movimiento += (c.delta);
+
+          dy = 100 - (movimiento.dy);
+
+          if (dy < 100) movimiento = Offset.zero;
+          if (dy > 200) {
+            dy = 200;
+          }
+          ;
+
+          setState(() {
+            print('dy--->$dy');
+            print('ofset ${movimiento * (.1)}');
+            print('delta ${c.delta.dy * (1)}');
+          });
+        },
+        child: AnimatedBuilder(
+          animation: _animationController.view,
+          builder: (BuildContext context, Widget child) {
+            return Container(color: Colors.red, width: dy, height: dy);
+          },
+        ),
       ),
     );
   }
