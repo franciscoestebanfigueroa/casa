@@ -33,32 +33,50 @@ class _ChallengState extends State<Challeng> {
     super.dispose();
   }
 
+  Tarjetas temptarjetas;
+  List<Tarjetas> milista = [
+    Tarjetas('PRIMERO', 'uno', Colors.red, '${tarjetas[0].asset}/10/300'),
+    Tarjetas('SEGUNDO', 'dos', Colors.orange, '${tarjetas[0].asset}/12/300'),
+    Tarjetas('TERCERO', 'tres', Colors.green, '${tarjetas[0].asset}/16/300'),
+    Tarjetas('CUARTO', 'cuatro', Colors.blue, '${tarjetas[0].asset}/290/300'),
+    Tarjetas('QUINTO', 'cinco', Colors.yellow, '${tarjetas[0].asset}/11/300'),
+    Tarjetas('SEXTO', 'seis', Colors.pink, '${tarjetas[0].asset}/19/300'),
+    Tarjetas('PRIMERO', 'uno', Colors.red, '${tarjetas[0].asset}/102/300'),
+    Tarjetas('SEGUNDO', 'dos', Colors.orange, '${tarjetas[0].asset}/122/300'),
+    Tarjetas('TERCERO', 'tres', Colors.green, '${tarjetas[0].asset}/126/300'),
+    Tarjetas('CUARTO', 'cuatro', Colors.blue, '${tarjetas[0].asset}/293/300'),
+    Tarjetas('QUINTO', 'cinco', Colors.yellow, '${tarjetas[0].asset}/121/300'),
+    Tarjetas('SEXTO', 'seis', Colors.pink, '${tarjetas[0].asset}/193/300')
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Material App Bar'),
       ),
-      body: Stack(
+      body: ReorderableListView(
+        onReorder: (int oldIndex, int newIndex) {
+          setState(() {
+            if (oldIndex < newIndex) {
+              temptarjetas = milista[oldIndex];
+              milista[oldIndex] = milista[newIndex - 1];
+              milista[newIndex - 1] = temptarjetas;
+            }
+            if (oldIndex > newIndex) {
+              temptarjetas = milista[oldIndex];
+              milista[oldIndex] = milista[newIndex];
+              milista[newIndex] = temptarjetas;
+            }
+          });
+        },
         children: [
-          CustomScrollView(
-            controller: _scrollcontroler,
-            slivers: [
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    return ListTile(
-                      title:
-                          Image.network('${tarjetas[0].asset}/$index/640/480'),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-          Menu(
-            height: 100,
-          )
+          for (final xxx in milista)
+            ListTile(
+              tileColor: xxx.color,
+              key: ValueKey(xxx),
+              subtitle: Text('${xxx.nombre}'),
+              title: Image.network(xxx.asset),
+            ),
         ],
       ),
     );
