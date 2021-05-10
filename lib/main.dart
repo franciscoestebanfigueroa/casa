@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
         '/challeng': (_) => Challeng(),
         '/reordenable': (_) => Reordenable(),
         '/transition': (_) => TransitionDemo(),
+        '/crossfade': (_) => CrossFadeDemo(),
       },
     );
   }

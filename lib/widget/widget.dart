@@ -49,6 +49,12 @@ class WidgetTodos extends StatelessWidget {
                 duration: Duration(milliseconds: 2300),
                 ruta: '/transition'),
             Divider(),
+            Botones(
+                color: Colors.orange,
+                texto: 'CrossFade',
+                duration: Duration(milliseconds: 1300),
+                ruta: '/crossfade'),
+            Divider(),
           ],
         ),
       ),
@@ -358,11 +364,7 @@ class _TransitionDemoState extends State<TransitionDemo>
     return Container(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-          child: AnimatedIcon(
-            icon: AnimatedIcons.arrow_menu,
-            progress:
-                (Tween(end: 0.0, begin: 1.0).animate(_controleranimation)),
-          ),
+          child: IconoAnimado(controleranimation: _controleranimation),
           onPressed: () {
             setState(() {
               _controleranimation.forward();
@@ -383,5 +385,95 @@ class _TransitionDemoState extends State<TransitionDemo>
         ),
       ),
     );
+  }
+}
+
+class IconoAnimado extends StatelessWidget {
+  const IconoAnimado({
+    Key key,
+    @required AnimationController controleranimation,
+  })  : _controleranimation = controleranimation,
+        super(key: key);
+
+  final AnimationController _controleranimation;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedIcon(
+      icon: AnimatedIcons.arrow_menu,
+      progress: (Tween(end: 0.0, begin: 1.0).animate(_controleranimation)),
+    );
+  }
+}
+
+class CrossFadeDemo extends StatefulWidget {
+  CrossFadeDemo({Key key}) : super(key: key);
+  bool estado = false;
+
+  @override
+  _CrossFadeDemoState createState() => _CrossFadeDemoState();
+}
+
+class _CrossFadeDemoState extends State<CrossFadeDemo> {
+  @override
+  Widget widgetuno = Container(
+    width: 200,
+    height: 200,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(50),
+      color: Colors.red,
+    ),
+  );
+  Widget widgetdos = Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(100),
+      color: Colors.blue,
+    ),
+    width: 200,
+    height: 200,
+  );
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.place),
+          onPressed: () {
+            print(widget.estado);
+            setState(() {
+              widget.estado = !widget.estado;
+            });
+          },
+        ),
+        body: Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(color: Colors.grey, gradient: migradiente),
+          child: AnimatedCrossFade(
+            duration: Duration(milliseconds: 1000),
+            firstChild: widgetuno,
+            secondChild: widgetdos,
+            crossFadeState: widget.estado
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
+            layoutBuilder: (wuno, keyuno, wdos, kdos) {
+              return Stack(
+                overflow: Overflow.visible,
+                alignment: Alignment.center,
+                children: [
+                  Positioned(
+                    top: 100,
+                    child: wuno,
+                    key: keyuno,
+                  ),
+                  Positioned(
+                    top: 100,
+                    key: kdos,
+                    child: wdos,
+                  ),
+                ],
+              );
+            },
+          ),
+        ));
   }
 }
