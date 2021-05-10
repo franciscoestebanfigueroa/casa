@@ -55,6 +55,8 @@ class MyApp extends StatelessWidget {
         '/pagedemo': (_) => PageDemo(),
         '/tabledemo': (_) => TableDemo(),
         '/challeng': (_) => Challeng(),
+        '/reordenable': (_) => Reordenable(),
+        '/transition': (_) => TransitionDemo(),
       },
     );
   }

@@ -54,29 +54,36 @@ class _ChallengState extends State<Challeng> {
       appBar: AppBar(
         title: Text('Material App Bar'),
       ),
-      body: ReorderableListView(
-        onReorder: (int oldIndex, int newIndex) {
-          setState(() {
-            if (oldIndex < newIndex) {
-              temptarjetas = milista[oldIndex];
-              milista[oldIndex] = milista[newIndex - 1];
-              milista[newIndex - 1] = temptarjetas;
-            }
-            if (oldIndex > newIndex) {
-              temptarjetas = milista[oldIndex];
-              milista[oldIndex] = milista[newIndex];
-              milista[newIndex] = temptarjetas;
-            }
-          });
-        },
+      body: Stack(
         children: [
-          for (final xxx in milista)
-            ListTile(
-              tileColor: xxx.color,
-              key: ValueKey(xxx),
-              subtitle: Text('${xxx.nombre}'),
-              title: Image.network(xxx.asset),
-            ),
+          ReorderableListView(
+            onReorder: (int oldIndex, int newIndex) {
+              setState(() {
+                if (oldIndex < newIndex) {
+                  temptarjetas = milista[oldIndex];
+                  milista[oldIndex] = milista[newIndex - 1];
+                  milista[newIndex - 1] = temptarjetas;
+                }
+                if (oldIndex > newIndex) {
+                  temptarjetas = milista[oldIndex];
+                  milista[oldIndex] = milista[newIndex];
+                  milista[newIndex] = temptarjetas;
+                }
+              });
+            },
+            children: [
+              for (final xxx in milista)
+                ListTile(
+                  tileColor: xxx.color,
+                  key: ValueKey(xxx),
+                  subtitle: Text('${xxx.nombre}'),
+                  title: Image.network(xxx.asset),
+                ),
+            ],
+          ),
+          Menu(
+            height: 200,
+          )
         ],
       ),
     );

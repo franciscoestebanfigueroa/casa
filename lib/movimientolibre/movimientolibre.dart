@@ -1,6 +1,7 @@
 import 'dart:math';
 //hola pancho xxxx seguro
 import 'package:flutter/material.dart';
+import 'package:wapp/utilidades/temas.dart';
 import 'package:wapp/widgetpersinalizado/widgetpersonalizado.dart';
 
 class MovimientoLibre extends StatefulWidget {
@@ -48,8 +49,8 @@ class _SkfoldState extends State<Skfold> with SingleTickerProviderStateMixin {
   Animation animation;
   @override
   void initState() {
-    animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 800));
+    animationController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 5000));
     animation = Tween(end: 1.0, begin: 0.0).animate(animationController);
     animationController.repeat();
     super.initState();
@@ -75,10 +76,14 @@ class _SkfoldState extends State<Skfold> with SingleTickerProviderStateMixin {
           AnimatedBuilder(
               animation: animation,
               builder: (context, _) {
-                print('controloer.value  ${animationController.value}');
+                //  print('controloer.value  ${animationController.value}');
                 return Transform.rotate(
                   angle: 2 * pi * animationController.value,
                   child: Container(
+                    decoration: BoxDecoration(
+                        gradient: migradiente,
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(300)),
                     alignment: Alignment.center,
                     child: Text(
                       'Pancho',
@@ -87,12 +92,11 @@ class _SkfoldState extends State<Skfold> with SingleTickerProviderStateMixin {
                     ),
                     height: 100,
                     width: 300,
-                    color: Colors.orange,
                   ),
                 );
               }),
           SizedBox(
-            height: 20,
+            height: 200,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

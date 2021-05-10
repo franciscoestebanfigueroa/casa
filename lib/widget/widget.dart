@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wapp/animatedcontainer/containeranimed.dart';
 import 'package:wapp/main.dart';
+import 'package:wapp/movimientolibre/movimientolibre.dart';
 import 'package:wapp/utilidades/tarjetas.dart';
 import 'package:wapp/utilidades/temas.dart';
 
@@ -31,9 +33,21 @@ class WidgetTodos extends StatelessWidget {
             Divider(),
             Botones(
                 color: Colors.pink,
-                texto: ' Table es un gril pero fijo din scroll',
+                texto: ' Table es un gril \npero fijo din scroll ',
                 duration: Duration(milliseconds: 2000),
                 ruta: '/tabledemo'),
+            Divider(),
+            Botones(
+                color: Colors.pink,
+                texto: ' List View Reordenable',
+                duration: Duration(milliseconds: 2300),
+                ruta: '/reordenable'),
+            Divider(),
+            Botones(
+                color: Colors.orange,
+                texto: 'Tansition',
+                duration: Duration(milliseconds: 2300),
+                ruta: '/transition'),
             Divider(),
           ],
         ),
@@ -245,6 +259,126 @@ class TableDemo extends StatelessWidget {
                 ])
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Reordenable extends StatefulWidget {
+  const Reordenable({Key key}) : super(key: key);
+
+  @override
+  _ReordenableState createState() => _ReordenableState();
+}
+
+class _ReordenableState extends State<Reordenable> {
+  Tarjetas temptarjetas;
+  List<Tarjetas> milista = [
+    Tarjetas('PRIMERO', 'uno', Colors.red, '${tarjetas[0].asset}/10/300'),
+    Tarjetas('SEGUNDO', 'dos', Colors.orange, '${tarjetas[0].asset}/12/300'),
+    Tarjetas('TERCERO', 'tres', Colors.green, '${tarjetas[0].asset}/16/300'),
+    Tarjetas('CUARTO', 'cuatro', Colors.blue, '${tarjetas[0].asset}/290/300'),
+    Tarjetas('QUINTO', 'cinco', Colors.yellow, '${tarjetas[0].asset}/11/300'),
+    Tarjetas('SEXTO', 'seis', Colors.pink, '${tarjetas[0].asset}/19/300'),
+    Tarjetas('PRIMERO', 'uno', Colors.red, '${tarjetas[0].asset}/102/300'),
+    Tarjetas('SEGUNDO', 'dos', Colors.orange, '${tarjetas[0].asset}/122/300'),
+    Tarjetas('TERCERO', 'tres', Colors.green, '${tarjetas[0].asset}/126/300'),
+    Tarjetas('CUARTO', 'cuatro', Colors.blue, '${tarjetas[0].asset}/293/300'),
+    Tarjetas('QUINTO', 'cinco', Colors.yellow, '${tarjetas[0].asset}/121/300'),
+    Tarjetas('SEXTO', 'seis', Colors.pink, '${tarjetas[0].asset}/193/300')
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: ReorderableListView(
+        onReorder: (int oldIndex, int newIndex) {
+          setState(() {
+            if (oldIndex < newIndex) {
+              temptarjetas = milista[oldIndex];
+              milista[oldIndex] = milista[newIndex - 1];
+              milista[newIndex - 1] = temptarjetas;
+            }
+            if (oldIndex > newIndex) {
+              temptarjetas = milista[oldIndex];
+              milista[oldIndex] = milista[newIndex];
+              milista[newIndex] = temptarjetas;
+            }
+          });
+        },
+        children: [
+          for (final xxx in milista)
+            ListTile(
+              tileColor: xxx.color,
+              key: ValueKey(xxx),
+              subtitle: Text('${xxx.nombre}'),
+              title: Image.network(xxx.asset),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class TransitionDemo extends StatefulWidget {
+  const TransitionDemo({Key key}) : super(key: key);
+
+  @override
+  _TransitionDemoState createState() => _TransitionDemoState();
+}
+
+class _TransitionDemoState extends State<TransitionDemo>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controleranimation;
+  Animation _animation2;
+  ScrollController _scrollController =
+      ScrollController(initialScrollOffset: 0.0);
+  @override
+  void initState() {
+    _controleranimation =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    //_animation2 = (Tween(end: 0.0, begin: 1.0).animate(_controleranimation));
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controleranimation.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget _miwidget = MovimientoLibre();
+
+  Widget build(BuildContext context) {
+    return Container(
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: AnimatedIcon(
+            icon: AnimatedIcons.arrow_menu,
+            progress:
+                (Tween(end: 0.0, begin: 1.0).animate(_controleranimation)),
+          ),
+          onPressed: () {
+            setState(() {
+              _controleranimation.forward();
+              _miwidget = FadeDemo();
+            });
+          },
+        ),
+        body: Container(
+          child: Center(
+            child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 3000),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return ScaleTransition(child: child, scale: animation);
+                  //return RotationTransition(child: child, turns: animation);
+                },
+                child: _miwidget),
           ),
         ),
       ),
