@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (contex) => Sfo(),
-        '//': (context) => Chat(),
+        '///': (context) => Chat(),
         '/chat': (contex) => Pruebafire(),
         '/avion': (contex) => Avion(),
         '/efectos': (_) => Efectos(),

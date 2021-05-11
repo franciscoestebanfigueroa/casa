@@ -114,23 +114,18 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
-  ScrollController _scrollcontroler;
   AnimationController _animationController;
-
-  Animation _animation;
+  bool estado = true;
   Offset movimiento = Offset.zero;
-  double dy = 100;
+  double dy = 1;
+  double mnimo = 100;
+  double maximo = 300;
+
   @override
   void initState() {
-    _scrollcontroler = ScrollController(debugLabel: 'menu');
-    _scrollcontroler.addListener(() {
-      print(_scrollcontroler.position.viewportDimension);
-    });
     _animationController =
         AnimationController(duration: Duration(milliseconds: 900), vsync: this);
-    _animation = Tween(begin: 1, end: 0).animate(_animationController);
     _animationController.forward();
-
     print(_animationController.value);
 
     super.initState();
@@ -140,8 +135,6 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
   void dispose() {
     _animationController.dispose();
 
-    _scrollcontroler.removeListener(() {});
-    _scrollcontroler.dispose();
     super.dispose();
   }
 
@@ -152,33 +145,49 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
 
     return Positioned(
       bottom: 0,
-      left: (size.width / 2) - (dy / 2),
+      left: (_animationController.value * size.width / 2) - (dy / 2),
       child: GestureDetector(
         onTap: () {
           setState(() {
-            movimiento = Offset.zero;
-            dy = 400;
+            if (estado) {
+              _animationController.reverse();
+              dy = _animationController.value * mnimo;
+              estado = !estado;
+            } else {
+              dy = _animationController.value * maximo;
+              estado = !estado;
+              _animationController.forward();
+            }
+            // movimiento = Offset.zero;
+            //dy = 400;
           });
         },
         onPanUpdate: (c) {
+          /*
           movimiento += (c.delta);
           dy = 100 - (movimiento.dy);
           if (dy < 100) movimiento = Offset.zero;
-          if (dy > 200) {
+          if (dy > 200) */
+          {
             dy = 200;
           }
           ;
 
           setState(() {
-            print('dy--->$dy');
-            print('ofset ${movimiento * (.1)}');
-            print('delta ${c.delta.dy * (1)}');
+            //print('ofset ${movimiento * (.1)}');
+            //print('delta ${c.delta.dy * (1)}');
           });
         },
         child: AnimatedBuilder(
-          animation: _animationController.view,
+          animation: _animationController,
           builder: (BuildContext context, Widget child) {
-            return Container(color: Colors.red, width: dy, height: dy);
+            //print(_animationController.value);
+            print('dy--->$dy');
+            return Container(
+              color: Colors.red,
+              width: dy,
+              height: dy,
+            );
           },
         ),
       ),
