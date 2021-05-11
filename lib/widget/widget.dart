@@ -55,6 +55,12 @@ class WidgetTodos extends StatelessWidget {
                 duration: Duration(milliseconds: 1300),
                 ruta: '/crossfade'),
             Divider(),
+            Botones(
+                color: Colors.orange,
+                texto: 'DraggableScrollableSeet',
+                duration: Duration(milliseconds: 1300),
+                ruta: '/draggablscrollable'),
+            Divider(),
           ],
         ),
       ),
@@ -475,5 +481,72 @@ class _CrossFadeDemoState extends State<CrossFadeDemo> {
             },
           ),
         ));
+  }
+}
+
+class DraggableScrollableSheetDemo extends StatefulWidget {
+  const DraggableScrollableSheetDemo({Key key}) : super(key: key);
+
+  @override
+  _DraggableScrollableSheetDemoState createState() =>
+      _DraggableScrollableSheetDemoState();
+}
+
+double slider = 10;
+
+class _DraggableScrollableSheetDemoState
+    extends State<DraggableScrollableSheetDemo> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          Slider(
+              max: 150,
+              min: 10,
+              value: slider,
+              onChanged: (x) {
+                setState(() {
+                  slider = x;
+                });
+              }),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(gradient: migradiente),
+              child: DraggableScrollableSheet(
+                initialChildSize: 0.3,
+                minChildSize: 0.3,
+                maxChildSize: .3,
+                builder:
+                    (BuildContext context, ScrollController scrollController) {
+                  print(slider);
+                  return SingleChildScrollView(
+                      controller: scrollController,
+                      child: AnimatedPadding(
+                        duration: Duration(milliseconds: 900),
+                        padding: EdgeInsets.only(
+                            top: slider, left: slider / 2, right: slider / 2),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          width: 200,
+                          color: Colors.orange,
+                        ),
+                      )
+                      /*child: Column(
+                      children: [
+                        for (int i = 20; i < 28; i++)
+                          Image.network('${tarjetas[0].asset}/$i/640/480'),
+                      ],
+                    ),
+ */
+                      );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

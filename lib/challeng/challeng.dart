@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:wapp/animatedcontainer/containeranimed.dart';
 import 'package:wapp/usosliver/usosliver.dart';
 import 'package:wapp/utilidades/tarjetas.dart';
-
-ScrollController _scrollcontroler, _scrollmenu;
 
 class Challeng extends StatefulWidget {
   @override
@@ -11,6 +10,7 @@ class Challeng extends StatefulWidget {
 }
 
 class _ChallengState extends State<Challeng> {
+  ScrollController _scrollcontroler;
   void indice() {
     setState(() {});
   }
@@ -46,44 +46,59 @@ class _ChallengState extends State<Challeng> {
     Tarjetas('TERCERO', 'tres', Colors.green, '${tarjetas[0].asset}/126/300'),
     Tarjetas('CUARTO', 'cuatro', Colors.blue, '${tarjetas[0].asset}/293/300'),
     Tarjetas('QUINTO', 'cinco', Colors.yellow, '${tarjetas[0].asset}/121/300'),
-    Tarjetas('SEXTO', 'seis', Colors.pink, '${tarjetas[0].asset}/193/300')
+    Tarjetas('SEXTO', 'seis', Colors.pink, '${tarjetas[0].asset}/193/300'),
   ];
+  double slidervalue = 10;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Material App Bar'),
       ),
-      body: Stack(
+      body: Column(
         children: [
-          ReorderableListView(
-            onReorder: (int oldIndex, int newIndex) {
-              setState(() {
-                if (oldIndex < newIndex) {
-                  temptarjetas = milista[oldIndex];
-                  milista[oldIndex] = milista[newIndex - 1];
-                  milista[newIndex - 1] = temptarjetas;
-                }
-                if (oldIndex > newIndex) {
-                  temptarjetas = milista[oldIndex];
-                  milista[oldIndex] = milista[newIndex];
-                  milista[newIndex] = temptarjetas;
-                }
-              });
-            },
-            children: [
-              for (final xxx in milista)
-                ListTile(
-                  tileColor: xxx.color,
-                  key: ValueKey(xxx),
-                  subtitle: Text('${xxx.nombre}'),
-                  title: Image.network(xxx.asset),
+          Slider(
+              max: 150,
+              value: slidervalue,
+              onChanged: (value) {
+                setState(() {
+                  slidervalue = value;
+                });
+              }),
+          Expanded(
+            child: Stack(
+              children: [
+                ReorderableListView(
+                  onReorder: (int oldIndex, int newIndex) {
+                    setState(() {
+                      if (oldIndex < newIndex) {
+                        temptarjetas = milista[oldIndex];
+                        milista[oldIndex] = milista[newIndex - 1];
+                        milista[newIndex - 1] = temptarjetas;
+                      }
+                      if (oldIndex > newIndex) {
+                        temptarjetas = milista[oldIndex];
+                        milista[oldIndex] = milista[newIndex];
+                        milista[newIndex] = temptarjetas;
+                      }
+                    });
+                  },
+                  children: [
+                    for (final xxx in milista)
+                      ListTile(
+                        tileColor: xxx.color,
+                        key: ValueKey(xxx),
+                        subtitle: Text('${xxx.nombre}'),
+                        title: Image.network(xxx.asset),
+                      ),
+                  ],
                 ),
-            ],
+                Menu(
+                  height: slidervalue,
+                )
+              ],
+            ),
           ),
-          Menu(
-            height: 200,
-          )
         ],
       ),
     );
@@ -99,6 +114,7 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
+  ScrollController _scrollcontroler;
   AnimationController _animationController;
 
   Animation _animation;
@@ -106,9 +122,9 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
   double dy = 100;
   @override
   void initState() {
-    _scrollmenu = ScrollController(debugLabel: 'menu');
-    _scrollmenu.addListener(() {
-      print(_scrollmenu);
+    _scrollcontroler = ScrollController(debugLabel: 'menu');
+    _scrollcontroler.addListener(() {
+      print(_scrollcontroler.position.viewportDimension);
     });
     _animationController =
         AnimationController(duration: Duration(milliseconds: 900), vsync: this);
@@ -125,7 +141,7 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
     _animationController.dispose();
 
     _scrollcontroler.removeListener(() {});
-    _scrollmenu.dispose();
+    _scrollcontroler.dispose();
     super.dispose();
   }
 
@@ -145,12 +161,8 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
           });
         },
         onPanUpdate: (c) {
-          //  movimiento += (c.delta) - Offset(0.0, c.delta.dy - dy);
-
           movimiento += (c.delta);
-
           dy = 100 - (movimiento.dy);
-
           if (dy < 100) movimiento = Offset.zero;
           if (dy > 200) {
             dy = 200;
@@ -169,6 +181,38 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
             return Container(color: Colors.red, width: dy, height: dy);
           },
         ),
+      ),
+    );
+  }
+}
+
+class Menudos extends StatefulWidget {
+  double valueslider;
+  Menudos({Key key, this.valueslider}) : super(key: key);
+
+  @override
+  _MenudosState createState() => _MenudosState();
+}
+
+class _MenudosState extends State<Menudos> {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 0,
+      left: (MediaQuery.of(context).size.width / 2) -
+          (((100) - widget.valueslider)),
+      child: Container(
+        alignment: Alignment.center,
+        width: 300,
+        height: 300,
+        child: AnimatedPadding(
+            child: Container(
+              height: 200,
+              width: 200,
+              color: Colors.red,
+            ),
+            padding: EdgeInsets.all(widget.valueslider),
+            duration: Duration(milliseconds: 900)),
       ),
     );
   }

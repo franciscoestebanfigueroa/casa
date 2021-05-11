@@ -58,6 +58,7 @@ class MyApp extends StatelessWidget {
         '/reordenable': (_) => Reordenable(),
         '/transition': (_) => TransitionDemo(),
         '/crossfade': (_) => CrossFadeDemo(),
+        '/draggablscrollable': (_) => DraggableScrollableSheetDemo(),
       },
     );
   }
