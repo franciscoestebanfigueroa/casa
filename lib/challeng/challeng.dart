@@ -1,227 +1,147 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:wapp/animatedcontainer/containeranimed.dart';
-import 'package:wapp/usosliver/usosliver.dart';
+
 import 'package:wapp/utilidades/tarjetas.dart';
+import 'package:wapp/utilidades/temas.dart';
 
 class Challeng extends StatefulWidget {
   @override
   _ChallengState createState() => _ChallengState();
 }
 
-class _ChallengState extends State<Challeng> {
-  ScrollController _scrollcontroler;
-  void indice() {
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    _scrollcontroler = ScrollController(debugLabel: 'fotos');
-    _scrollcontroler.addListener(() {
-      //   print(_scrollcontroler);
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _scrollcontroler.removeListener(() {
-      indice();
-    });
-    _scrollcontroler.dispose();
-    super.dispose();
-  }
-
-  Tarjetas temptarjetas;
-  List<Tarjetas> milista = [
-    Tarjetas('PRIMERO', 'uno', Colors.red, '${tarjetas[0].asset}/10/300'),
-    Tarjetas('SEGUNDO', 'dos', Colors.orange, '${tarjetas[0].asset}/12/300'),
-    Tarjetas('TERCERO', 'tres', Colors.green, '${tarjetas[0].asset}/16/300'),
-    Tarjetas('CUARTO', 'cuatro', Colors.blue, '${tarjetas[0].asset}/290/300'),
-    Tarjetas('QUINTO', 'cinco', Colors.yellow, '${tarjetas[0].asset}/11/300'),
-    Tarjetas('SEXTO', 'seis', Colors.pink, '${tarjetas[0].asset}/19/300'),
-    Tarjetas('PRIMERO', 'uno', Colors.red, '${tarjetas[0].asset}/102/300'),
-    Tarjetas('SEGUNDO', 'dos', Colors.orange, '${tarjetas[0].asset}/122/300'),
-    Tarjetas('TERCERO', 'tres', Colors.green, '${tarjetas[0].asset}/126/300'),
-    Tarjetas('CUARTO', 'cuatro', Colors.blue, '${tarjetas[0].asset}/293/300'),
-    Tarjetas('QUINTO', 'cinco', Colors.yellow, '${tarjetas[0].asset}/121/300'),
-    Tarjetas('SEXTO', 'seis', Colors.pink, '${tarjetas[0].asset}/193/300'),
-  ];
-  double slidervalue = 10;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Material App Bar'),
-      ),
-      body: Column(
-        children: [
-          Slider(
-              max: 150,
-              value: slidervalue,
-              onChanged: (value) {
-                setState(() {
-                  slidervalue = value;
-                });
-              }),
-          Expanded(
-            child: Stack(
-              children: [
-                ReorderableListView(
-                  onReorder: (int oldIndex, int newIndex) {
-                    setState(() {
-                      if (oldIndex < newIndex) {
-                        temptarjetas = milista[oldIndex];
-                        milista[oldIndex] = milista[newIndex - 1];
-                        milista[newIndex - 1] = temptarjetas;
-                      }
-                      if (oldIndex > newIndex) {
-                        temptarjetas = milista[oldIndex];
-                        milista[oldIndex] = milista[newIndex];
-                        milista[newIndex] = temptarjetas;
-                      }
-                    });
-                  },
-                  children: [
-                    for (final xxx in milista)
-                      ListTile(
-                        tileColor: xxx.color,
-                        key: ValueKey(xxx),
-                        subtitle: Text('${xxx.nombre}'),
-                        title: Image.network(xxx.asset),
-                      ),
-                  ],
-                ),
-                Menu(
-                  height: slidervalue,
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class Menu extends StatefulWidget {
-  final double height;
-  const Menu({Key key, this.height}) : super(key: key);
-
-  @override
-  _MenuState createState() => _MenuState();
-}
-
-class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
+class _ChallengState extends State<Challeng>
+    with SingleTickerProviderStateMixin {
   AnimationController _animationController;
-  bool estado = true;
-  Offset movimiento = Offset.zero;
-  double dy = 1;
-  double mnimo = 100;
-  double maximo = 300;
 
   @override
   void initState() {
     _animationController =
-        AnimationController(duration: Duration(milliseconds: 900), vsync: this);
-    _animationController.forward();
-    print(_animationController.value);
-
+        AnimationController(vsync: this, duration: Duration(milliseconds: 800));
     super.initState();
   }
 
   @override
-  void dispose() {
+  void disposed() {
     _animationController.dispose();
-
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    //  final scroller = _scrollcontroler.offset;
+  Widget mini() {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Icon(Icons.ac_unit),
+          GestureDetector(
+              onTap: () {
+                setState(() {
+                  estado = true;
+                });
 
-    return Positioned(
-      bottom: 0,
-      left: (_animationController.value * size.width / 2) - (dy / 2),
-      child: GestureDetector(
-        onTap: () {
-          setState(() {
-            if (estado) {
-              _animationController.reverse();
-              dy = _animationController.value * mnimo;
-              estado = !estado;
-            } else {
-              dy = _animationController.value * maximo;
-              estado = !estado;
-              _animationController.forward();
-            }
-            // movimiento = Offset.zero;
-            //dy = 400;
-          });
-        },
-        onPanUpdate: (c) {
-          /*
-          movimiento += (c.delta);
-          dy = 100 - (movimiento.dy);
-          if (dy < 100) movimiento = Offset.zero;
-          if (dy > 200) */
-          {
-            dy = 200;
-          }
-          ;
-
-          setState(() {
-            //print('ofset ${movimiento * (.1)}');
-            //print('delta ${c.delta.dy * (1)}');
-          });
-        },
-        child: AnimatedBuilder(
-          animation: _animationController,
-          builder: (BuildContext context, Widget child) {
-            //print(_animationController.value);
-            print('dy--->$dy');
-            return Container(
-              color: Colors.red,
-              width: dy,
-              height: dy,
-            );
-          },
-        ),
+                _animationController.forward();
+              },
+              child: Icon(Icons.ac_unit)),
+          Icon(Icons.ac_unit)
+        ],
       ),
+      width: 100,
+      height: 80,
+      decoration: BoxDecoration(
+          color: Colors.amberAccent, borderRadius: BorderRadius.circular(10)),
     );
   }
-}
 
-class Menudos extends StatefulWidget {
-  double valueslider;
-  Menudos({Key key, this.valueslider}) : super(key: key);
+  Widget expandido() {
+    return Container(
+      height: 160,
+      decoration: BoxDecoration(
+          gradient: migradiente,
+          color: Colors.pink[600],
+          borderRadius: BorderRadius.circular(10)),
+    );
+  }
 
-  @override
-  _MenudosState createState() => _MenudosState();
-}
+  bool estado = false;
 
-class _MenudosState extends State<Menudos> {
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
-      left: (MediaQuery.of(context).size.width / 2) -
-          (((100) - widget.valueslider)),
-      child: Container(
-        alignment: Alignment.center,
-        width: 300,
-        height: 300,
-        child: AnimatedPadding(
-            child: Container(
-              height: 200,
-              width: 200,
-              color: Colors.red,
+    final double maximo = 300;
+    final double minimo = 100;
+    final size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Material App Bar'),
+      ),
+      extendBody: true,
+      bottomNavigationBar: GestureDetector(
+        onVerticalDragUpdate: estado
+            ? (x) {
+                setState(() {
+                  print('update');
+                  _animationController.reverse();
+                });
+              }
+            : null,
+        onVerticalDragEnd: estado
+            ? (x) {
+                estado = false;
+              }
+            : null,
+        child: Stack(
+          children: [
+            AnimatedBuilder(
+              builder: (contex, child) {
+                return Positioned(
+                  left: lerpDouble(
+                      size.width / 2 - ((size.width * .3) / 2),
+                      size.width / 2 - ((size.width * .8) / 2),
+                      _animationController.value),
+                  width: lerpDouble(size.width * .3, size.width * .8,
+                      _animationController.value),
+                  height: lerpDouble(100, 300, _animationController.value),
+                  bottom: 10,
+                  child: estado ? expandido() : mini(),
+                );
+              },
+              animation: _animationController,
             ),
-            padding: EdgeInsets.all(widget.valueslider),
-            duration: Duration(milliseconds: 900)),
+            /* Positioned(
+              left: size.width / 2 - ((size.width * .3) / 2),
+              width: size.width * .30,
+              height: minimo,
+              bottom: 10,
+              child: mini,
+            ),*/
+          ],
+        ),
+      ),
+      body: ReorderableListView(
+        onReorder: (int oldIndex, int newIndex) {
+          setState(() {
+            if (oldIndex < newIndex) {
+              temptarjetas = milista[oldIndex];
+              milista[oldIndex] = milista[newIndex - 1];
+              milista[newIndex - 1] = temptarjetas;
+            }
+            if (oldIndex > newIndex) {
+              temptarjetas = milista[oldIndex];
+              milista[oldIndex] = milista[newIndex];
+              milista[newIndex] = temptarjetas;
+            }
+          });
+        },
+        children: [
+          for (final xxx in milista)
+            ListTile(
+              tileColor: xxx.color,
+              key: ValueKey(xxx),
+              subtitle: Text('${xxx.nombre}'),
+              //title: Image.network(xxx.asset),
+            ),
+        ],
       ),
     );
   }

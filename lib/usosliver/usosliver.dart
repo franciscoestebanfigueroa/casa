@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:wapp/utilidades/tarjetas.dart';
 
-const size = 150.0;
+const _size = 150.0;
 
 class UsoSliver extends StatefulWidget {
   @override
@@ -105,9 +105,9 @@ class _UsoSliverState extends State<UsoSliver> {
 
               delegate: SliverChildBuilderDelegate((context, index) {
                 final child = tarjetas[index];
-                final itemposicion = (index * (size / 2));
+                final itemposicion = (index * (_size / 2));
                 final diferencia = scrollController.offset - itemposicion;
-                final porcentaje = 1 - (diferencia / size / 2);
+                final porcentaje = 1 - (diferencia / _size / 2);
                 double opacity = porcentaje;
                 if (porcentaje > 1) opacity = 1;
                 if (porcentaje < 0) opacity = 0;
