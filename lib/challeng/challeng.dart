@@ -1,10 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:wapp/utilidades/tarjetas.dart';
 import 'package:wapp/utilidades/temas.dart';
+
+const _maximo = 300.0;
+const _minimo = 100.0;
 
 class Challeng extends StatefulWidget {
   @override
@@ -15,10 +19,11 @@ class _ChallengState extends State<Challeng>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
 
+  double alturaactual = _minimo;
   @override
   void initState() {
     _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 800));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     super.initState();
   }
 
@@ -33,17 +38,17 @@ class _ChallengState extends State<Challeng>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Icon(Icons.ac_unit),
+          Icon(Icons.image),
           GestureDetector(
               onTap: () {
                 setState(() {
                   estado = true;
+                  alturaactual = _maximo;
+                  _animationController.forward(from: 0.0);
                 });
-
-                _animationController.forward();
               },
-              child: Icon(Icons.ac_unit)),
-          Icon(Icons.ac_unit)
+              child: Icon(Icons.image_search)),
+          Icon(Icons.imagesearch_roller)
         ],
       ),
       width: 100,
@@ -54,12 +59,42 @@ class _ChallengState extends State<Challeng>
   }
 
   Widget expandido() {
-    return Container(
-      height: 160,
-      decoration: BoxDecoration(
-          gradient: migradiente,
-          color: Colors.pink[600],
-          borderRadius: BorderRadius.circular(10)),
+    return Opacity(
+      opacity: _animationController.value,
+      child: Column(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Center(
+              child: Text(
+                'Fotos',
+                style: TextStyle(
+                  fontSize: (25 * _animationController.value),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: ListWheelScrollView(
+              squeeze: 0.8,
+              magnification: 2.0,
+              useMagnifier: true,
+              diameterRatio: 2,
+              itemExtent: 40,
+              children: [
+                for (var item in milista)
+                  Center(
+                    child: Image.network(
+                      '${item.asset}/100',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -67,8 +102,6 @@ class _ChallengState extends State<Challeng>
 
   @override
   Widget build(BuildContext context) {
-    final double maximo = 300;
-    final double minimo = 100;
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -80,14 +113,24 @@ class _ChallengState extends State<Challeng>
         onVerticalDragUpdate: estado
             ? (x) {
                 setState(() {
-                  print('update');
-                  _animationController.reverse();
+                  print('x ${x.delta.dy}');
+                  final double enmovimiento = alturaactual - x.delta.dy;
+                  _animationController.value = enmovimiento / _maximo;
+                  alturaactual = enmovimiento.clamp(_minimo, _maximo);
                 });
               }
             : null,
         onVerticalDragEnd: estado
             ? (x) {
-                estado = false;
+                if (alturaactual < _maximo / 2) {
+                  _animationController.reverse();
+                  estado = false;
+                } else {
+                  _animationController.forward(from: alturaactual / _maximo);
+                  estado = true;
+                  alturaactual = _maximo;
+                }
+                // estado = false;
               }
             : null,
         child: Stack(
@@ -103,7 +146,13 @@ class _ChallengState extends State<Challeng>
                       _animationController.value),
                   height: lerpDouble(100, 300, _animationController.value),
                   bottom: 10,
-                  child: estado ? expandido() : mini(),
+                  child: Container(
+                      decoration: BoxDecoration(
+                          gradient: migradiente,
+                          color: Colors.pink[600],
+                          borderRadius: BorderRadius.circular(
+                              lerpDouble(20, 40, _animationController.value))),
+                      child: estado ? expandido() : mini()),
                 );
               },
               animation: _animationController,
@@ -139,7 +188,7 @@ class _ChallengState extends State<Challeng>
               tileColor: xxx.color,
               key: ValueKey(xxx),
               subtitle: Text('${xxx.nombre}'),
-              //title: Image.network(xxx.asset),
+              title: Image.network(xxx.asset),
             ),
         ],
       ),
