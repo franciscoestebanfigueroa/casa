@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:wapp/avion/avion.dart';
 import 'package:wapp/challeng/challeng.dart';
+import 'package:wapp/challeng/masdragg.dart';
 import 'package:wapp/chat/pagechat.dart';
 import 'package:wapp/chat/segundapage.dart';
 import 'package:wapp/delivery/delivery.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
         '/transition': (_) => TransitionDemo(),
         '/crossfade': (_) => CrossFadeDemo(),
         '/draggablscrollable': (_) => DraggableScrollableSheetDemo(),
+        '/masdragg': (_) => MasDragg(),
       },
     );
   }
@@ -193,6 +195,16 @@ class Sfo extends StatelessWidget {
                   texto: 'Challeng',
                   duration: Duration(milliseconds: 1800),
                   ruta: '/challeng',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Botones(
+                  color: Colors.pink,
+                  axis: Axis.vertical,
+                  texto: 'MasDragg',
+                  duration: Duration(milliseconds: 1800),
+                  ruta: '/masdragg',
                 )
               ],
             ),
