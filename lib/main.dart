@@ -13,6 +13,7 @@ import 'package:wapp/widget/widget.dart';
 import 'package:wapp/widgetpersinalizado/widgetpersonalizado.dart';
 
 import 'animatedcontainer/containeranimed.dart';
+import 'block/mainblock.dart';
 import 'efectos/efectos.dart';
 import 'efectos/propiedades.dart';
 import 'flatmultiple/floatmultible.dart';
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
         '/crossfade': (_) => CrossFadeDemo(),
         '/draggablscrollable': (_) => DraggableScrollableSheetDemo(),
         '/masdragg': (_) => MasDragg(),
+        '/blockdemo': (_) => BlockDemo(),
       },
     );
   }
@@ -205,6 +207,16 @@ class Sfo extends StatelessWidget {
                   texto: 'MasDragg',
                   duration: Duration(milliseconds: 1800),
                   ruta: '/masdragg',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Botones(
+                  color: Colors.pink,
+                  axis: Axis.vertical,
+                  texto: 'Block',
+                  duration: Duration(milliseconds: 1800),
+                  ruta: '/blockdemo',
                 )
               ],
             ),
