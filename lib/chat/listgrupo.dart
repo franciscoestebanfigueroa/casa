@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wapp/chat/pagechat.dart';
 
 import '../model/grupo.dart';
 

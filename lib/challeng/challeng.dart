@@ -28,7 +28,7 @@ class _ChallengState extends State<Challeng>
   }
 
   @override
-  void disposed() {
+  void dispose() {
     _animationController.dispose();
     super.dispose();
   }

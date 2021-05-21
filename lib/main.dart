@@ -8,6 +8,7 @@ import 'package:wapp/chat/pagechat.dart';
 import 'package:wapp/chat/segundapage.dart';
 import 'package:wapp/delivery/delivery.dart';
 import 'package:wapp/delivery/pedidos.dart';
+import 'package:wapp/radio/radio.dart';
 import 'package:wapp/tips/tips.dart';
 import 'package:wapp/widget/widget.dart';
 import 'package:wapp/widgetpersinalizado/widgetpersonalizado.dart';
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
         '/draggablscrollable': (_) => DraggableScrollableSheetDemo(),
         '/masdragg': (_) => MasDragg(),
         '/blockdemo': (_) => BlockDemo(),
+        '/radio': (_) => RadioInternet(),
       },
     );
   }
@@ -89,7 +91,7 @@ class Sfo extends StatelessWidget {
                   color: Colors.amberAccent[400],
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Botones(
                   color: Colors.orange,
@@ -99,7 +101,7 @@ class Sfo extends StatelessWidget {
                   ruta: '/avion',
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Botones(
                   color: Colors.orange,
@@ -109,7 +111,7 @@ class Sfo extends StatelessWidget {
                   ruta: '/efectos',
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Botones(
                   color: Colors.orange,
@@ -119,7 +121,7 @@ class Sfo extends StatelessWidget {
                   ruta: '/widgetpersonalizado',
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Botones(
                   color: Colors.orange,
@@ -129,7 +131,7 @@ class Sfo extends StatelessWidget {
                   ruta: '/containeranimed',
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Botones(
                   color: Colors.orange,
@@ -139,7 +141,7 @@ class Sfo extends StatelessWidget {
                   ruta: '/movimientolibre',
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Botones(
                   color: Colors.orange,
@@ -149,7 +151,7 @@ class Sfo extends StatelessWidget {
                   ruta: '/floatmultiple',
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Botones(
                   color: Colors.orange,
@@ -159,7 +161,7 @@ class Sfo extends StatelessWidget {
                   ruta: '/usosliver',
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Botones(
                   color: Colors.orange,
@@ -169,7 +171,7 @@ class Sfo extends StatelessWidget {
                   ruta: '/delivery',
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Botones(
                   color: Colors.green,
@@ -179,7 +181,7 @@ class Sfo extends StatelessWidget {
                   ruta: '/tips',
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Botones(
                   color: Colors.green,
@@ -189,7 +191,7 @@ class Sfo extends StatelessWidget {
                   ruta: '/widget',
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Botones(
                   color: Colors.green,
@@ -199,7 +201,7 @@ class Sfo extends StatelessWidget {
                   ruta: '/challeng',
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Botones(
                   color: Colors.pink,
@@ -209,7 +211,7 @@ class Sfo extends StatelessWidget {
                   ruta: '/masdragg',
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Botones(
                   color: Colors.pink,
@@ -217,6 +219,16 @@ class Sfo extends StatelessWidget {
                   texto: 'Block',
                   duration: Duration(milliseconds: 1800),
                   ruta: '/blockdemo',
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Botones(
+                  color: Colors.pink,
+                  axis: Axis.horizontal,
+                  texto: 'Radio',
+                  duration: Duration(milliseconds: 1800),
+                  ruta: '/radio',
                 )
               ],
             ),

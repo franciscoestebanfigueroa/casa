@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:wapp/delivery/productos.dart';
-
 const List<String> PRODUCTOS = [
   'Lunes',
   'Martes',

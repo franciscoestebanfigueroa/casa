@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wapp/animatedcontainer/containeranimed.dart';
+
 import 'package:wapp/main.dart';
 import 'package:wapp/movimientolibre/movimientolibre.dart';
 import 'package:wapp/utilidades/tarjetas.dart';
@@ -345,9 +345,9 @@ class TransitionDemo extends StatefulWidget {
 class _TransitionDemoState extends State<TransitionDemo>
     with SingleTickerProviderStateMixin {
   AnimationController _controleranimation;
-  Animation _animation2;
-  ScrollController _scrollController =
-      ScrollController(initialScrollOffset: 0.0);
+  //Animation _animation2;
+  // ScrollController _scrollController =
+  //   ScrollController(initialScrollOffset: 0.0);
   @override
   void initState() {
     _controleranimation =

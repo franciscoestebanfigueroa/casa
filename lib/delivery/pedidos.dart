@@ -3,7 +3,6 @@ import 'package:wapp/delivery/caritovacio.dart';
 import 'package:wapp/delivery/carrito.dart';
 import 'package:wapp/delivery/perfil.dart';
 import 'package:wapp/delivery/productos.dart';
-import 'package:wapp/utilidades/tarjetas.dart';
 
 class Pedidos extends StatefulWidget {
   @override
