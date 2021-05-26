@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-//import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:wapp/avion/avion.dart';
 import 'package:wapp/challeng/challeng.dart';
 import 'package:wapp/challeng/masdragg.dart';
@@ -23,13 +23,11 @@ import 'usosliver/usosliver.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // FirebaseApp defaultApp = Firebase.app();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,7 +37,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (contex) => Sfo(),
-        '///': (context) => Chat(),
+        '//': (context) => Chat(),
         '/chat': (contex) => Pruebafire(),
         '/avion': (contex) => Avion(),
         '/efectos': (_) => Efectos(),
